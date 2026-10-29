@@ -70,7 +70,7 @@ function Reveal({ children, i = 0, className = "" }: { children: ReactNode; i?: 
 
 function Section({ id, label, title, children }: { id: string; label: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="mx-auto max-w-6xl px-6 py-24 border-t">
+    <section id={id} className="mx-auto max-w-6xl px-6 py-24">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-widest text-primary">{label}</p>
         <h2 className="mt-3 font-display text-4xl md:text-5xl">{title}</h2>
@@ -93,7 +93,7 @@ function ThemeToggle() {
     setTimeout(() => root.classList.remove("theme-anim"), 300);
   };
   return (
-    <button onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} className="press grid h-9 w-9 place-items-center rounded-full border hover:bg-secondary">
+    <button onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} className="press glass grid h-9 w-9 place-items-center rounded-full">
       {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </button>
   );
@@ -125,10 +125,11 @@ function Index() {
   }, []);
 
   return (
-    <div className="min-h-screen">
+    <div className="relative min-h-screen">
+      <div className="orbs" aria-hidden><span /><span /><span /><span /></div>
       <div className="scroll-progress" aria-hidden />
-      <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
-        <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+      <header className="sticky top-0 z-20 px-4 pt-4">
+        <nav className="glass mx-auto flex max-w-6xl items-center justify-between rounded-full px-6 py-3">
           <a href="#top" className="font-display text-xl">Edson<span className="text-primary">.</span></a>
           <div className="flex items-center gap-6">
             <div className="hidden gap-6 text-sm text-muted-foreground md:flex">
@@ -157,13 +158,13 @@ function Index() {
                 </p>
               </Reveal>
               <Reveal i={3} className="mt-10 flex flex-wrap gap-3">
-                <a href="#contact" className="press rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Book a workflow audit</a>
-                <a href="#works" className="press rounded-full border px-6 py-3 font-semibold hover:bg-secondary">See my work</a>
+                <a href="#contact" className="press rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground shadow-[0_8px_30px_-6px_var(--color-primary)]">Book a workflow audit</a>
+                <a href="#works" className="press glass rounded-full px-6 py-3 font-semibold">See my work</a>
               </Reveal>
             </div>
             <Reveal i={4} className="justify-self-center md:justify-self-end">
-              <div className="press relative w-64 overflow-hidden rounded-3xl border shadow-2xl md:w-80">
-                <img src={portraitImg.url} alt="Edson Halili" className="aspect-[4/5] w-full object-cover" />
+              <div className="press glass relative w-64 overflow-hidden rounded-3xl p-2 shadow-2xl md:w-80">
+                <img src={portraitImg.url} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
                 <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
               </div>
             </Reveal>
@@ -183,7 +184,7 @@ function Index() {
         <div className="grid gap-5 md:grid-cols-2">
           {services.map((s, i) => (
             <Reveal key={s.t} i={i}>
-              <div className="lift h-full rounded-xl border bg-card p-8">
+              <div className="lift h-full glass rounded-2xl p-8">
                 <p className="font-mono text-sm text-accent">0{i + 1}</p>
                 <h3 className="mt-4 font-display text-2xl">{s.t}</h3>
                 <p className="mt-3 text-muted-foreground">{s.d}</p>
@@ -215,7 +216,7 @@ function Index() {
               <h3 className="font-display text-2xl">BS Information Technology</h3>
               <p className="text-muted-foreground">Laguna State Polytechnic University — Los Baños</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {certs.map((c) => <span key={c} className="rounded-full border px-3 py-1 text-sm">{c}</span>)}
+                {certs.map((c) => <span key={c} className="glass rounded-full px-3 py-1 text-sm">{c}</span>)}
               </div>
             </div>
           </Reveal>
@@ -226,7 +227,7 @@ function Index() {
         <div className="grid gap-5 md:grid-cols-2">
           {works.map((w, i) => (
             <Reveal key={w.t} i={i}>
-              <a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden rounded-xl border bg-card">
+              <a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden glass rounded-2xl">
                 <div className="aspect-[16/9] overflow-hidden border-b bg-muted">
                   <img src={w.img} alt={`${w.t} workflow in n8n`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
                 </div>
@@ -245,7 +246,7 @@ function Index() {
         <div className="grid gap-5 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={i} i={i}>
-              <figure className="h-full rounded-xl border bg-card p-8">
+              <figure className="h-full glass rounded-2xl p-8">
                 <blockquote className="font-display text-xl leading-snug">“{t.q}”</blockquote>
                 <figcaption className="mt-6 text-sm"><span className="font-semibold">{t.n}</span><span className="text-muted-foreground"> · {t.r}</span></figcaption>
               </figure>
@@ -261,7 +262,7 @@ function Index() {
             ["Mobile", "0949 347 7934", "tel:09493477934"],
             ["LinkedIn", "in/edson-halili", "https://www.linkedin.com/in/edson-halili"],
           ].map(([l, v, h]) => (
-            <a key={l} href={h} target={l === "LinkedIn" ? "_blank" : undefined} rel="noreferrer" className="lift block rounded-xl border bg-card p-8">
+            <a key={l} href={h} target={l === "LinkedIn" ? "_blank" : undefined} rel="noreferrer" className="lift block glass rounded-2xl p-8">
               <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</p>
               <p className="mt-3 font-display text-xl break-all">{v}</p>
             </a>
@@ -269,7 +270,7 @@ function Index() {
         </Reveal>
       </Section>
 
-      <footer className="border-t py-10 text-center text-sm text-muted-foreground">
+      <footer className="py-10 text-center text-sm text-muted-foreground">
         © 2026 Edson Halili · Los Baños, Laguna, Philippines
       </footer>
     </div>
