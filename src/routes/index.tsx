@@ -1,5 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { Moon, Sun } from "lucide-react";
+import salesImg from "@/assets/n8n-200815.png.asset.json";
+import agentImg from "@/assets/n8n-201520.png.asset.json";
+import reportsImg from "@/assets/n8n-201638.png.asset.json";
+import weeklyImg from "@/assets/n8n-202148.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -44,10 +49,10 @@ const experience = [
 ];
 
 const works = [
-  { t: "Lead-to-CRM Pipeline", tag: "GoHighLevel · Zapier", d: "Captures web leads, enriches them and routes them into a CRM with automated follow-up sequences." },
-  { t: "Self-hosted n8n Server", tag: "n8n · APIs", d: "Production n8n setup orchestrating API calls between booking, email and spreadsheet tools." },
-  { t: "Inventory Alert Agent", tag: "AI Agent · Sheets", d: "Monitors stock levels and expiry dates, then sends restock and early-expiry alerts automatically." },
-  { t: "AI Inbox Assistant", tag: "LLM · Prompt Eng.", d: "Triages incoming emails, drafts replies and logs requests — built for busy executives." },
+  { t: "Sales Data Pipeline", tag: "n8n · HTTP · CSV", img: salesImg.url, d: "Pulls sales data, totals each order and splits into 3 branches: order data to the warehouse, a regional analysis to finance, and a CSV report to the manager." },
+  { t: "AI Customer & Sales Agent", tag: "n8n · AI Agent · Gemini", img: agentImg.url, d: "A chat-based AI agent with memory that looks up customers and orders on its own, then answers with a full customer list and total sales report." },
+  { t: "Automated Report Generation", tag: "n8n · Merge · Discord", img: reportsImg.url, d: "Merges order and customer data, calculates totals, builds a Europe-only CSV and regional summaries, then posts results to a Discord channel." },
+  { t: "Weekly Order Status Workflow", tag: "n8n · Schedule · Discord", img: weeklyImg.url, d: "Runs every Monday at 9AM: fetches warehouse data, checks order status, updates customer records and sends booked order totals to Discord." },
 ];
 
 const testimonials = [
@@ -74,6 +79,25 @@ function Section({ id, label, title, children }: { id: string; label: string; ti
   );
 }
 
+function ThemeToggle() {
+  const [dark, setDark] = useState(true);
+  useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
+  const toggle = () => {
+    const root = document.documentElement;
+    root.classList.add("theme-anim");
+    const next = !root.classList.contains("dark");
+    root.classList.toggle("dark", next);
+    localStorage.setItem("theme", next ? "dark" : "light");
+    setDark(next);
+    setTimeout(() => root.classList.remove("theme-anim"), 300);
+  };
+  return (
+    <button onClick={toggle} aria-label={dark ? "Switch to light mode" : "Switch to dark mode"} className="press grid h-9 w-9 place-items-center rounded-full border hover:bg-secondary">
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
+
 function Index() {
   useEffect(() => {
     const io = new IntersectionObserver(
@@ -81,18 +105,37 @@ function Index() {
       { threshold: 0.15 },
     );
     document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
-    return () => io.disconnect();
+
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const onDown = (ev: PointerEvent) => {
+      if (reduce) return;
+      const el = (ev.target as HTMLElement).closest<HTMLElement>(".press");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      const size = Math.max(r.width, r.height) * 2.2;
+      const s = document.createElement("span");
+      s.className = "ripple";
+      Object.assign(s.style, { width: `${size}px`, height: `${size}px`, left: `${ev.clientX - r.left}px`, top: `${ev.clientY - r.top}px` });
+      el.appendChild(s);
+      s.addEventListener("animationend", () => s.remove());
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => { io.disconnect(); document.removeEventListener("pointerdown", onDown); };
   }, []);
 
   return (
     <div className="min-h-screen">
+      <div className="scroll-progress" aria-hidden />
       <header className="sticky top-0 z-20 border-b bg-background/80 backdrop-blur">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
           <a href="#top" className="font-display text-xl">Edson<span className="text-primary">.</span></a>
-          <div className="hidden gap-6 text-sm text-muted-foreground md:flex">
-            {["services", "experience", "works", "testimonials", "contact"].map((s) => (
-              <a key={s} href={`#${s}`} className="capitalize transition-colors hover:text-foreground">{s}</a>
-            ))}
+          <div className="flex items-center gap-6">
+            <div className="hidden gap-6 text-sm text-muted-foreground md:flex">
+              {["services", "experience", "works", "testimonials", "contact"].map((s) => (
+                <a key={s} href={`#${s}`} className="capitalize transition-colors hover:text-foreground">{s}</a>
+              ))}
+            </div>
+            <ThemeToggle />
           </div>
         </nav>
       </header>
@@ -168,15 +211,20 @@ function Index() {
         </div>
       </Section>
 
-      <Section id="works" label="03 — Previous works" title="Systems I've built">
+      <Section id="works" label="03 — Previous works" title="Workflows I've built in n8n">
         <div className="grid gap-5 md:grid-cols-2">
           {works.map((w, i) => (
             <Reveal key={w.t} i={i}>
-              <div className="lift h-full rounded-xl border bg-card p-8">
-                <p className="font-mono text-xs uppercase tracking-wider text-accent">{w.tag}</p>
-                <h3 className="mt-3 font-display text-2xl">{w.t}</h3>
-                <p className="mt-3 text-muted-foreground">{w.d}</p>
-              </div>
+              <a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden rounded-xl border bg-card">
+                <div className="aspect-[16/9] overflow-hidden border-b bg-muted">
+                  <img src={w.img} alt={`${w.t} workflow in n8n`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
+                </div>
+                <div className="p-8">
+                  <p className="font-mono text-xs uppercase tracking-wider text-accent">{w.tag}</p>
+                  <h3 className="mt-3 font-display text-2xl">{w.t}</h3>
+                  <p className="mt-3 text-muted-foreground">{w.d}</p>
+                </div>
+              </a>
             </Reveal>
           ))}
         </div>
