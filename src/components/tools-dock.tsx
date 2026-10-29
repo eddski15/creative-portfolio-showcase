@@ -19,7 +19,7 @@ const tools = [
   { name: "Grok", href: "https://grok.com", fallback: "grok" },
 ];
 
-function ToolIcon({ icon, fallback }: { icon?: SimpleIcon; fallback?: string }) {
+function ToolIcon({ icon, fallback }: { icon: SimpleIcon | undefined; fallback: string | undefined }) {
   if (icon) return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={icon.path} /></svg>;
   if (fallback === "lovable") return <Heart fill="currentColor" strokeWidth={0} aria-hidden="true" />;
   if (fallback === "codex") return <Terminal aria-hidden="true" />;
