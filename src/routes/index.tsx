@@ -5,6 +5,7 @@ import salesImg from "@/assets/n8n-200815.png.asset.json";
 import agentImg from "@/assets/n8n-201520.png.asset.json";
 import reportsImg from "@/assets/n8n-201638.png.asset.json";
 import weeklyImg from "@/assets/n8n-202148.png.asset.json";
+import portraitImg from "@/assets/edson-portrait.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,7 +30,7 @@ const services = [
 
 const experience = [
   {
-    role: "Branch Administrative Assistant", co: "Mercury Drug Corp.", when: "Dec 2024 — Jul 2026",
+    role: "Data Operations Analyst / Inventory Control Analyst", co: "Mercury Drug Corp.", when: "Dec 2024 — Jul 2026",
     pts: [
       "Audited and streamlined daily operational workflows with the Branch Manager to speed up stock movement and sales.",
       "Oversaw high-volume data recording, accounts receivable and digital filing with 100% data integrity.",
