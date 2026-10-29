@@ -143,24 +143,34 @@ function Index() {
 
       <section id="top" className="hero-glow">
         <div className="mx-auto max-w-6xl px-6 pb-24 pt-24 md:pt-36">
-          <Reveal><p className="font-mono text-xs uppercase tracking-widest text-primary">AI Automation Systems Specialist · Los Baños, PH</p></Reveal>
-          <Reveal i={1}>
-            <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[1.05] md:text-7xl">
-              I help business owners stop <em className="text-primary">drowning</em> in repetitive work.
-            </h1>
-          </Reveal>
-          <Reveal i={2}>
-            <p className="mt-8 max-w-2xl text-lg text-muted-foreground">
-              17+ years running high-volume operations, data and inventory for one of the largest enterprises in the Philippines — now building AI workflows that save hours, cut errors and lower overhead.
-            </p>
-          </Reveal>
-          <Reveal i={3} className="mt-10 flex flex-wrap gap-3">
-            <a href="#contact" className="press rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Book a workflow audit</a>
-            <a href="#works" className="press rounded-full border px-6 py-3 font-semibold hover:bg-secondary">See my work</a>
-          </Reveal>
+          <div className="grid items-center gap-12 md:grid-cols-[1.2fr_1fr]">
+            <div>
+              <Reveal><p className="font-mono text-xs uppercase tracking-widest text-primary">AI Automation Systems Specialist · Los Baños, PH</p></Reveal>
+              <Reveal i={1}>
+                <h1 className="mt-6 max-w-4xl font-display text-5xl leading-[1.05] md:text-7xl">
+                  I help business owners stop <em className="text-primary">drowning</em> in repetitive work.
+                </h1>
+              </Reveal>
+              <Reveal i={2}>
+                <p className="mt-8 max-w-2xl text-lg text-muted-foreground">
+                  17+ years running high-volume operations, data and inventory for one of the largest enterprises in the Philippines — now building AI workflows that save hours, cut errors and lower overhead.
+                </p>
+              </Reveal>
+              <Reveal i={3} className="mt-10 flex flex-wrap gap-3">
+                <a href="#contact" className="press rounded-full bg-primary px-6 py-3 font-semibold text-primary-foreground">Book a workflow audit</a>
+                <a href="#works" className="press rounded-full border px-6 py-3 font-semibold hover:bg-secondary">See my work</a>
+              </Reveal>
+            </div>
+            <Reveal i={4} className="justify-self-center md:justify-self-end">
+              <div className="press relative w-64 overflow-hidden rounded-3xl border shadow-2xl md:w-80">
+                <img src={portraitImg.url} alt="Edson Halili" className="aspect-[4/5] w-full object-cover" />
+                <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-inset ring-white/10" />
+              </div>
+            </Reveal>
+          </div>
           <div className="mt-20 grid grid-cols-2 gap-6 md:grid-cols-4">
             {[["17+", "Years in operations"], ["100%", "Stock precision"], ["5", "Certifications"], ["BS IT", "LSPU Los Baños"]].map(([n, l], i) => (
-              <Reveal key={l} i={i + 4}>
+              <Reveal key={l} i={i + 5}>
                 <p className="font-display text-4xl text-primary">{n}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{l}</p>
               </Reveal>
