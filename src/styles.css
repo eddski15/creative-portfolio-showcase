@@ -146,3 +146,10 @@
 }
 
 .theme-anim, .theme-anim * { transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease !important; }
+
+@utility zoom {
+  transition: transform 400ms var(--ease-out);
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover & { transform: scale(1.04); }
+  }
+}
