@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { ArrowUpRight, Heart, Terminal, ArrowUp, Hash } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { siZapier, siMake, siN8n, siAsana, siGoogle, siRender, siClaudecode, siGooglegemini, type SimpleIcon } from "simple-icons";
 import { Button } from "@/components/ui/button";
+import { aiBrandPaths } from "@/components/ai-brand-paths";
 
 const tools = [
   { name: "Zapier", href: "https://zapier.com", icon: siZapier },
@@ -21,11 +22,10 @@ const tools = [
 
 function ToolIcon({ icon, fallback }: { icon: SimpleIcon | undefined; fallback: string | undefined }) {
   if (icon) return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d={icon.path} /></svg>;
-  if (fallback === "lovable") return <Heart fill="currentColor" strokeWidth={0} aria-hidden="true" />;
-  if (fallback === "codex") return <Terminal aria-hidden="true" />;
-  if (fallback === "highlevel") return <ArrowUp strokeWidth={3} aria-hidden="true" />;
-  if (fallback === "slack") return <Hash strokeWidth={4} aria-hidden="true" />;
-  return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.8 2H22l-8.7 10.1L21 22h-6.1l-5.1-6.6L4.2 22H0l7.8-9.1L.5 3h6.2l4.6 6L17.8 2Zm-2 18h1.7L5.6 5H3.9L15.8 20Z" /></svg>;
+  if (fallback === "highlevel") return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" aria-hidden="true"><path d="M4 22V12m-3 3 3-3 3 3M12 22V7m-3 3 3-3 3 3M20 22V2m-3 3 3-3 3 3" /></svg>;
+  if (fallback === "slack") return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="2" y="8" width="10" height="4" rx="2" /><rect x="8" y="2" width="4" height="10" rx="2" /><rect x="12" y="12" width="10" height="4" rx="2" /><rect x="12" y="12" width="4" height="10" rx="2" /><path d="M6 6H4a2 2 0 1 1 2-2v2Zm12 0V4a2 2 0 1 1 2 2h-2Zm0 12h2a2 2 0 1 1-2 2v-2ZM6 18v2a2 2 0 1 1-2-2h2Z" /></svg>;
+  const path = fallback === "codex" ? aiBrandPaths.codex : fallback === "lovable" ? aiBrandPaths.lovable : aiBrandPaths.grok;
+  return <svg viewBox="0 0 24 24" fill="currentColor" fillRule="evenodd" aria-hidden="true"><path d={path} /></svg>;
 }
 
 export function ToolsDock() {
@@ -38,10 +38,10 @@ export function ToolsDock() {
           <span className="text-xs text-muted-foreground">Automation · Operations · AI</span>
         </div>
         <nav aria-label="Tools I use" className="tools-dock glass">
-          {tools.map((tool, i) => (
+          {tools.map((tool) => (
             <Button asChild variant="ghost" key={tool.name} className="tool-link press" onMouseEnter={() => setActive(tool.name)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(tool.name)} onBlur={() => setActive(null)}>
               <a href={tool.href} target="_blank" rel="noreferrer" aria-label={tool.name} title={tool.name}>
-                <span className={`tool-symbol tool-phase-${i % 3}`}><ToolIcon icon={tool.icon} fallback={tool.fallback} /></span>
+                <span className="tool-symbol"><ToolIcon icon={tool.icon} fallback={tool.fallback} /></span>
                 <span className="tool-label">{tool.name}</span>
               </a>
             </Button>

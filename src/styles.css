@@ -184,7 +184,7 @@ body { min-width: 320px; }
 .portfolio-section { min-width: 0; }
 .portfolio-section li { min-width: 0; }
 .portfolio-section li > span { flex-shrink: 0; }
-.portfolio-section .glass { padding: 24px; }
+.portfolio-section div.glass, .portfolio-section figure.glass, #contact a.glass, #works a.glass > div:last-child { padding: 24px; }
 .tools-dock { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px 4px; padding: 16px 8px; border-radius: 24px; animation: dock-float 6s ease-in-out infinite; }
 .tool-link { width: 100%; height: 72px; flex-direction: column; gap: 9px; padding: 8px 2px; border-radius: 12px; color: var(--foreground); transition: transform 200ms var(--ease-out), background-color 200ms ease, color 200ms ease; }
 .tool-symbol { display: grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0; }
@@ -207,11 +207,18 @@ body { min-width: 320px; }
   .hero-title { font-size: 3.75rem; }
   .hero-portrait { width: 300px; justify-self: end; }
   .hero-stats { margin-top: 56px; }
-  .portfolio-section .glass { padding: 32px; }
+  .portfolio-section div.glass, .portfolio-section figure.glass, #contact a.glass, #works a.glass > div:last-child { padding: 32px; }
   .tools-dock { grid-template-columns: repeat(13, minmax(0, 1fr)); padding: 20px 12px; border-radius: 28px; }
   .tool-link { height: 80px; }
 }
 @media (max-width: 599px) {
+  .hero-inner { padding-top: 28px; padding-bottom: 24px; }
+  .hero-layout { grid-template-columns: minmax(0, 1fr); gap: 22px; }
+  .hero-portrait { grid-row: 1; width: 132px; }
+  .hero-title { font-size: 2rem; line-height: 1.12; margin-top: 12px; }
+  .hero-description { margin-top: 16px; font-size: 14px; line-height: 1.6; }
+  .hero-actions { margin-top: 20px; }
+  .hero-stats { margin-top: 24px; padding-top: 16px; }
   .hero-actions { display: grid; grid-template-columns: minmax(0, 1fr); }
   .hero-actions a { width: 100%; }
   .hero-copy > .reveal:first-child p { line-height: 1.8; }
