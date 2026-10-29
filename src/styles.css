@@ -35,27 +35,47 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.17 0.012 160);
-  --foreground: oklch(0.95 0.015 95);
-  --card: oklch(0.21 0.014 160);
-  --card-foreground: oklch(0.95 0.015 95);
-  --popover: oklch(0.21 0.014 160);
-  --popover-foreground: oklch(0.95 0.015 95);
-  --primary: oklch(0.88 0.19 125);
-  --primary-foreground: oklch(0.17 0.012 160);
-  --secondary: oklch(0.26 0.015 160);
-  --secondary-foreground: oklch(0.95 0.015 95);
-  --muted: oklch(0.24 0.012 160);
-  --muted-foreground: oklch(0.7 0.02 120);
-  --accent: oklch(0.78 0.14 60);
-  --accent-foreground: oklch(0.17 0.012 160);
+  --background: oklch(0.97 0.01 145);
+  --foreground: oklch(0.2 0.03 150);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.03 150);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.03 150);
+  --primary: oklch(0.55 0.2 145);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.92 0.02 145);
+  --secondary-foreground: oklch(0.2 0.03 150);
+  --muted: oklch(0.93 0.015 145);
+  --muted-foreground: oklch(0.45 0.03 150);
+  --accent: oklch(0.6 0.16 60);
+  --accent-foreground: oklch(0.99 0 0);
   --destructive: oklch(0.6 0.22 27);
   --destructive-foreground: oklch(0.98 0 0);
-  --border: oklch(0.32 0.015 160);
-  --input: oklch(0.32 0.015 160);
-  --ring: oklch(0.88 0.19 125);
+  --border: oklch(0.86 0.02 145);
+  --input: oklch(0.86 0.02 145);
+  --ring: oklch(0.55 0.2 145);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --glow: radial-gradient(60% 60% at 70% 20%, color-mix(in oklab, var(--primary) 18%, transparent), transparent 70%);
+}
+
+.dark {
+  --background: oklch(0.14 0.015 150);
+  --foreground: oklch(0.95 0.015 140);
+  --card: oklch(0.18 0.02 150);
+  --card-foreground: oklch(0.95 0.015 140);
+  --popover: oklch(0.18 0.02 150);
+  --popover-foreground: oklch(0.95 0.015 140);
+  --primary: oklch(0.8 0.26 145);
+  --primary-foreground: oklch(0.14 0.015 150);
+  --secondary: oklch(0.23 0.02 150);
+  --secondary-foreground: oklch(0.95 0.015 140);
+  --muted: oklch(0.21 0.015 150);
+  --muted-foreground: oklch(0.7 0.03 145);
+  --accent: oklch(0.78 0.14 60);
+  --accent-foreground: oklch(0.14 0.015 150);
+  --border: oklch(0.29 0.03 150);
+  --input: oklch(0.29 0.03 150);
+  --ring: oklch(0.8 0.26 145);
 }
 
 @layer base {
@@ -91,6 +111,45 @@
 }
 
 @utility press {
+  position: relative;
+  overflow: hidden;
   transition: transform 140ms var(--ease-out), background-color 200ms ease;
   &:active { transform: scale(0.97); }
+}
+
+/* Click ripple, spawned by JS on pointerdown */
+.ripple {
+  position: absolute;
+  border-radius: 9999px;
+  pointer-events: none;
+  background: color-mix(in oklab, var(--primary) 35%, transparent);
+  transform: translate(-50%, -50%) scale(0.1);
+  opacity: 1;
+  animation: ripple 500ms var(--ease-out) forwards;
+}
+@keyframes ripple { to { transform: translate(-50%, -50%) scale(1); opacity: 0; } }
+
+/* Scroll progress bar, scroll-driven (off main thread) */
+.scroll-progress {
+  position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 50;
+  background: var(--color-primary);
+  box-shadow: 0 0 12px var(--color-primary);
+  transform-origin: 0 50%;
+  transform: scaleX(0);
+  animation: progress linear both;
+  animation-timeline: scroll(root);
+}
+@keyframes progress { to { transform: scaleX(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .ripple { animation: none; opacity: 0; }
+}
+
+.theme-anim, .theme-anim * { transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease !important; }
+
+@utility zoom {
+  transition: transform 400ms var(--ease-out);
+  @media (hover: hover) and (pointer: fine) {
+    .group:hover & { transform: scale(1.04); }
+  }
 }
