@@ -235,7 +235,7 @@ function Index() {
 
       <ToolsDock />
 
-      <Section id="works" label="03 — Previous works" title="Workflows I've built in n8n">
+      <Section id="works" label="03 — Previous works" title="Workflows I've built — and my ongoing build">
         <div className="grid gap-5 md:grid-cols-2">
           {works.map((w, i) => (
             <Reveal key={w.t} i={i}>
