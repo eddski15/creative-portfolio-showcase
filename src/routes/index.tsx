@@ -3,11 +3,11 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToolsDock } from "@/components/tools-dock";
-import salesImg from "@/assets/n8n-200815.png.asset.json";
-import agentImg from "@/assets/n8n-201520.png.asset.json";
-import reportsImg from "@/assets/n8n-201638.png.asset.json";
-import weeklyImg from "@/assets/n8n-202148.png.asset.json";
-import portraitImg from "@/assets/edson-portrait.png.asset.json";
+import salesImg from "@/assets/n8n-200815.jpg";
+import agentImg from "@/assets/n8n-201520.jpg";
+import reportsImg from "@/assets/n8n-201638.jpg";
+import weeklyImg from "@/assets/n8n-202148.jpg";
+import portraitImg from "@/assets/edson-portrait.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,10 +52,10 @@ const experience = [
 ];
 
 const works = [
-  { t: "Sales Data Pipeline", tag: "n8n · HTTP · CSV", img: salesImg.url, d: "Pulls sales data, totals each order and splits into 3 branches: order data to the warehouse, a regional analysis to finance, and a CSV report to the manager." },
-  { t: "AI Customer & Sales Agent", tag: "n8n · AI Agent · Gemini", img: agentImg.url, d: "A chat-based AI agent with memory that looks up customers and orders on its own, then answers with a full customer list and total sales report." },
-  { t: "Automated Report Generation", tag: "n8n · Merge · Discord", img: reportsImg.url, d: "Merges order and customer data, calculates totals, builds a Europe-only CSV and regional summaries, then posts results to a Discord channel." },
-  { t: "Weekly Order Status Workflow", tag: "n8n · Schedule · Discord", img: weeklyImg.url, d: "Runs every Monday at 9AM: fetches warehouse data, checks order status, updates customer records and sends booked order totals to Discord." },
+  { t: "Sales Data Pipeline", tag: "n8n · HTTP · CSV", img: salesImg, d: "Pulls sales data, totals each order and splits into 3 branches: order data to the warehouse, a regional analysis to finance, and a CSV report to the manager." },
+  { t: "AI Customer & Sales Agent", tag: "n8n · AI Agent · Gemini", img: agentImg, d: "A chat-based AI agent with memory that looks up customers and orders on its own, then answers with a full customer list and total sales report." },
+  { t: "Automated Report Generation", tag: "n8n · Merge · Discord", img: reportsImg, d: "Merges order and customer data, calculates totals, builds a Europe-only CSV and regional summaries, then posts results to a Discord channel." },
+  { t: "Weekly Order Status Workflow", tag: "n8n · Schedule · Discord", img: weeklyImg, d: "Runs every Monday at 9AM: fetches warehouse data, checks order status, updates customer records and sends booked order totals to Discord." },
 ];
 
 const testimonials = [
@@ -173,7 +173,7 @@ function Index() {
             </div>
             <Reveal i={4} className="hero-portrait justify-self-center">
               <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
-                <img src={portraitImg.url} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
+                <img src={portraitImg} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
               </div>
             </Reveal>
           </div>

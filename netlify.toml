@@ -1,0 +1,10 @@
+# Netlify self-hosting config. The build auto-selects nitro's "netlify" preset
+# because Netlify CI sets NETLIFY=true (see vite.config.ts). The preset emits
+# static files to dist/ and the serverless function to .netlify/functions-internal/
+# (auto-discovered by Netlify — no functions dir to configure).
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "22"
