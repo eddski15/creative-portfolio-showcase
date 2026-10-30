@@ -40,7 +40,7 @@ export function ToolsDock() {
         <nav aria-label="Tools I use" className="tools-dock glass">
           {tools.map((tool) => (
             <Button asChild variant="ghost" key={tool.name} className="tool-link press" onMouseEnter={() => setActive(tool.name)} onMouseLeave={() => setActive(null)} onFocus={() => setActive(tool.name)} onBlur={() => setActive(null)}>
-              <a href={tool.href} target="_blank" rel="noreferrer" aria-label={tool.name} title={tool.name}>
+              <a href={tool.href} target="_blank" rel="noreferrer" aria-label={`${tool.name} (opens in a new tab)`} title={tool.name}>
                 <span className="tool-symbol"><ToolIcon icon={tool.icon} fallback={tool.fallback} /></span>
                 <span className="tool-label">{tool.name}</span>
               </a>
