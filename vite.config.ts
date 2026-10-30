@@ -12,7 +12,7 @@ import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 //   - Netlify CI (NETLIFY=true) -> "netlify" (serverless functions)
 //   - everything else (Render, a VPS, local) -> "node-server" (node .output/server/index.mjs)
 const nitroPreset =
-  process.env.NITRO_PRESET || (process.env.NETLIFY ? "netlify" : "node-server");
+  process.env["NITRO_PRESET"] || (process.env["NETLIFY"] ? "netlify" : "node-server");
 
 export default defineConfig({
   nitro: { preset: nitroPreset },
