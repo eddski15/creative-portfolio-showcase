@@ -22,3 +22,11 @@ cd <repository-name>
 npm i
 npm run dev
 ```
+
+## Self-hosting (Render / Netlify)
+
+The build picks the right server target automatically (see `vite.config.ts`):
+
+- **Render**: `render.yaml` is included — Render builds with `npm install && npm run build` and starts `node .output/server/index.mjs` (Node 22).
+- **Netlify**: `netlify.toml` is included — Netlify builds with `npm run build` and publishes `dist/`, with the server running as a Netlify Function.
+- **Any other host**: set `NITRO_PRESET` to any nitro preset, or run the default Node build with `node .output/server/index.mjs`.
