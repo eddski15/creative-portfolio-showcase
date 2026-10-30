@@ -7,6 +7,7 @@ import salesImg from "@/assets/n8n-200815.jpg";
 import agentImg from "@/assets/n8n-201520.jpg";
 import reportsImg from "@/assets/n8n-201638.jpg";
 import weeklyImg from "@/assets/n8n-202148.jpg";
+import processpilotImg from "@/assets/processpilot-discovery.jpg";
 import portraitImg from "@/assets/edson-portrait.jpg";
 
 export const Route = createFileRoute("/")({
@@ -56,6 +57,7 @@ const works = [
   { t: "AI Customer & Sales Agent", tag: "n8n · AI Agent · Gemini", img: agentImg, d: "A chat-based AI agent with memory that looks up customers and orders on its own, then answers with a full customer list and total sales report." },
   { t: "Automated Report Generation", tag: "n8n · Merge · Discord", img: reportsImg, d: "Merges order and customer data, calculates totals, builds a Europe-only CSV and regional summaries, then posts results to a Discord channel." },
   { t: "Weekly Order Status Workflow", tag: "n8n · Schedule · Discord", img: weeklyImg, d: "Runs every Monday at 9AM: fetches warehouse data, checks order status, updates customer records and sends booked order totals to Discord." },
+  { t: "ProcessPilot AI", tag: "Web App · AI Copilot", img: processpilotImg, ongoing: true, d: "My ongoing build: a process discovery copilot that interviews business owners, maps their real workflows step by step, and turns each session into an implementation brief — with a private client-projects workspace and an internal AI Development Office to plan its own development." },
 ];
 
 const testimonials = [
@@ -242,7 +244,10 @@ function Index() {
                   <img src={w.img} alt={`${w.t} workflow in n8n`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
                 </div>
                 <div className="p-8">
-                  <p className="font-mono text-xs uppercase tracking-wider text-accent">{w.tag}</p>
+                  <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-accent">
+                    {w.tag}
+                    {w.ongoing && <span className="rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[10px] normal-case tracking-normal text-primary">In progress</span>}
+                  </p>
                   <h3 className="mt-3 font-display text-2xl">{w.t}</h3>
                   <p className="mt-3 text-muted-foreground">{w.d}</p>
                 </div>
