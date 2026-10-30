@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToolsDock } from "@/components/tools-dock";
@@ -72,10 +72,10 @@ function Reveal({ children, i = 0, className = "" }: { children: ReactNode; i?: 
 
 function Section({ id, label, title, children }: { id: string; label: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="portfolio-section mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <section id={id} aria-labelledby={`${id}-title`} className="portfolio-section mx-auto max-w-6xl px-6 py-16 md:py-24">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-widest text-primary">{label}</p>
-        <h2 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl">{title}</h2>
+        <h2 id={`${id}-title`} className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl">{title}</h2>
       </Reveal>
       <div className="mt-12">{children}</div>
     </section>
@@ -103,6 +103,17 @@ function ThemeToggle() {
 
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!menuOpen) return;
+    const onKey = (ev: KeyboardEvent) => {
+      if (ev.key !== "Escape") return;
+      setMenuOpen(false);
+      menuButtonRef.current?.focus();
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [menuOpen]);
   useEffect(() => {
     const io = new IntersectionObserver(
       (es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-visible"); io.unobserve(e.target); } }),
@@ -129,11 +140,12 @@ function Index() {
 
   return (
     <div className="relative min-h-screen">
+      <a href="#main" className="skip-link">Skip to main content</a>
       <div className="orbs" aria-hidden><span /><span /><span /><span /></div>
       <div className="scroll-progress" aria-hidden />
       <header className="sticky top-0 z-20 px-4 pt-4">
-        <nav className="glass mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-full px-5 py-3 md:flex md:justify-between">
-          <a href="#top" className="font-display text-xl">Edson<span className="text-primary">.</span></a>
+        <nav aria-label="Main" className="glass mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-full px-5 py-3 md:flex md:justify-between">
+          <a href="#top" aria-label="Edson Halili, back to top" className="font-display text-xl">Edson<span className="text-primary" aria-hidden="true">.</span></a>
           <div className="flex shrink-0 items-center gap-2 md:gap-6">
             <div className="hidden gap-6 text-sm text-muted-foreground md:flex">
               {["services", "experience", "works", "testimonials", "contact"].map((s) => (
@@ -141,7 +153,7 @@ function Index() {
               ))}
             </div>
             <ThemeToggle />
-            <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>
+            <Button ref={menuButtonRef} variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={menuOpen ? "Close navigation" : "Open navigation"} aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>
               {menuOpen ? <X /> : <Menu />}
             </Button>
           </div>
@@ -151,13 +163,14 @@ function Index() {
         </nav>}
       </header>
 
-      <section id="top" className="hero-glow">
+      <main id="main" tabIndex={-1} className="outline-none">
+      <section id="top" aria-labelledby="hero-title" className="hero-glow">
         <div className="hero-inner mx-auto max-w-6xl px-6">
           <div className="hero-layout grid items-center">
             <div className="hero-copy min-w-0">
               <Reveal><p className="font-mono text-xs uppercase tracking-widest text-primary">AI Automation Systems Specialist · Los Baños, PH</p></Reveal>
               <Reveal i={1}>
-                <h1 className="hero-title mt-5 max-w-4xl font-display">
+                <h1 id="hero-title" className="hero-title mt-5 max-w-4xl font-display">
                   I help business owners stop <em className="text-primary">drowning</em> in repetitive work.
                 </h1>
               </Reveal>
@@ -173,7 +186,7 @@ function Index() {
             </div>
             <Reveal i={4} className="hero-portrait justify-self-center">
               <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
-                <img src={portraitImg.url} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
+                <img src={portraitImg.url} alt="Portrait of Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
               </div>
             </Reveal>
           </div>
@@ -213,7 +226,7 @@ function Index() {
               <div>
                 <h3 className="font-display text-2xl">{e.role}</h3>
                 <ul className="mt-4 space-y-2 text-muted-foreground">
-                  {e.pts.map((p) => <li key={p} className="flex gap-3"><span className="text-primary">→</span>{p}</li>)}
+                  {e.pts.map((p) => <li key={p} className="flex gap-3"><span className="text-primary" aria-hidden="true">→</span>{p}</li>)}
                 </ul>
               </div>
             </Reveal>
@@ -239,12 +252,13 @@ function Index() {
             <Reveal key={w.t} i={i}>
               <a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden glass rounded-2xl">
                 <div className="aspect-[16/9] overflow-hidden border-b bg-muted">
-                  <img src={w.img} alt={`${w.t} workflow in n8n`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
+                  <img src={w.img} alt={`Screenshot of the ${w.t} workflow in the n8n editor`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
                 </div>
                 <div className="p-8">
                   <p className="font-mono text-xs uppercase tracking-wider text-accent">{w.tag}</p>
                   <h3 className="mt-3 font-display text-2xl">{w.t}</h3>
                   <p className="mt-3 text-muted-foreground">{w.d}</p>
+                  <span className="sr-only">(opens full-size screenshot in a new tab)</span>
                 </div>
               </a>
             </Reveal>
@@ -275,10 +289,12 @@ function Index() {
             <a key={l} href={h} target={l === "LinkedIn" ? "_blank" : undefined} rel="noreferrer" className="lift block glass rounded-2xl p-8">
               <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</p>
               <p className="mt-3 font-display text-xl break-all">{v}</p>
+              {l === "LinkedIn" && <span className="sr-only">(opens in a new tab)</span>}
             </a>
           ))}
         </Reveal>
       </Section>
+      </main>
 
       <footer className="py-10 text-center text-sm text-muted-foreground">
         © 2026 Edson Halili · Los Baños, Laguna, Philippines
