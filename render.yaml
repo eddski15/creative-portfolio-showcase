@@ -1,0 +1,12 @@
+# Render self-hosting config (Blueprint). The build auto-selects nitro's
+# "node-server" preset outside Netlify (see vite.config.ts).
+services:
+  - type: web
+    name: edson-portfolio
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: node .output/server/index.mjs
+    envVars:
+      - key: NODE_VERSION
+        value: "22"

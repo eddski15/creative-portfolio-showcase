@@ -1,0 +1,9 @@
+# Netlify self-hosting config. The build auto-selects nitro's "netlify" preset
+# because Netlify CI sets NETLIFY=true (see vite.config.ts).
+[build]
+  command = "npm run build"
+  publish = ".output/public"
+  functions = ".output/server"
+
+[build.environment]
+  NODE_VERSION = "22"
