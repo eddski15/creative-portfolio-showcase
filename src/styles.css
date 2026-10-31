@@ -228,3 +228,13 @@ body { min-width: 320px; }
   .tool-link:hover, .tool-link:focus-visible { transform: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Living cards: tilt set by JS on the element; glare follows pointer. */
+.living-card { position: relative; transform-style: preserve-3d; will-change: transform; border-radius: 1rem; }
+.living-card::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; opacity: 0; transition: opacity 250ms ease; background: radial-gradient(420px circle at var(--gx, 50%) var(--gy, 50%), color-mix(in oklab, var(--primary) 18%, transparent), transparent 60%); }
+@media (hover: hover) and (pointer: fine) { .living-card:hover::after { opacity: 1; } }
+.living-card .lift:hover { transform: none; }
+.cursor-trail { position: fixed; left: 0; top: 0; z-index: 0; width: 360px; height: 360px; border-radius: 9999px; pointer-events: none; opacity: 0; transition: opacity 400ms ease; background: radial-gradient(circle, color-mix(in oklab, var(--primary) 16%, transparent), transparent 65%); filter: blur(10px); }
+.bento { display: grid; gap: 20px; grid-template-columns: minmax(0, 1fr); }
+@media (min-width: 768px) { .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 1024px) { .bento-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .bento-3 > .bento-wide { grid-column: span 2; } }

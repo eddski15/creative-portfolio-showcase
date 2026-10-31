@@ -3,6 +3,7 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToolsDock } from "@/components/tools-dock";
+import { LivingCard, CursorTrail } from "@/components/living-card";
 import salesImg from "@/assets/n8n-200815.jpg";
 import agentImg from "@/assets/n8n-201520.jpg";
 import reportsImg from "@/assets/n8n-201638.jpg";
@@ -133,6 +134,7 @@ function Index() {
     <div className="relative min-h-screen">
       <div className="orbs" aria-hidden><span /><span /><span /><span /></div>
       <div className="scroll-progress" aria-hidden />
+      <CursorTrail />
       <header className="sticky top-0 z-20 px-4 pt-4">
         <nav className="glass mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-full px-5 py-3 md:flex md:justify-between">
           <a href="#top" className="font-display text-xl">Edson<span className="text-primary">.</span></a>
@@ -174,9 +176,11 @@ function Index() {
               </Reveal>
             </div>
             <Reveal i={4} className="hero-portrait justify-self-center">
-              <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
-                <img src={portraitImg} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
-              </div>
+              <LivingCard max={10} className="rounded-3xl">
+                <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
+                  <img src={portraitImg} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
+                </div>
+              </LivingCard>
             </Reveal>
           </div>
           <div className="hero-stats grid grid-cols-3 gap-4 border-t border-border/50 pt-6">
@@ -191,20 +195,20 @@ function Index() {
       </section>
 
       <Section id="services" label="01 — Services" title="What I do best">
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="bento bento-3">
           {services.map((s, i) => (
-            <Reveal key={s.t} i={i}>
-              <div className="lift h-full glass rounded-2xl p-8">
+            <Reveal key={s.t} i={i} className={i === 0 || i === 3 ? "bento-wide" : ""}>
+              <LivingCard><div className="lift h-full glass rounded-2xl p-8">
                 <p className="font-mono text-sm text-accent">0{i + 1}</p>
                 <h3 className="mt-4 font-display text-2xl">{s.t}</h3>
                 <p className="mt-3 text-muted-foreground">{s.d}</p>
-              </div>
+              </div></LivingCard>
             </Reveal>
           ))}
         </div>
       </Section>
 
-      <Section id="experience" label="02 — Experience" title="17 years, 11 months at Mercury Drug">
+      <Section id="experience" label="02 — Experience" title="Career journey">
         <div className="space-y-12">
           {experience.map((e, i) => (
             <Reveal key={e.role} i={i} className="grid gap-6 md:grid-cols-[240px_1fr]">
@@ -236,10 +240,10 @@ function Index() {
       <ToolsDock />
 
       <Section id="works" label="03 — Previous works" title="Workflows I've built — and my ongoing build">
-        <div className="grid gap-5 md:grid-cols-2">
+        <div className="bento bento-3">
           {works.map((w, i) => (
-            <Reveal key={w.t} i={i}>
-              <a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden glass rounded-2xl">
+            <Reveal key={w.t} i={i} className={w.ongoing ? "bento-wide" : ""}>
+              <LivingCard><a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden glass rounded-2xl">
                 <div className="aspect-[16/9] overflow-hidden border-b bg-muted">
                   <img src={w.img} alt={`${w.t} workflow in n8n`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
                 </div>
@@ -251,7 +255,7 @@ function Index() {
                   <h3 className="mt-3 font-display text-2xl">{w.t}</h3>
                   <p className="mt-3 text-muted-foreground">{w.d}</p>
                 </div>
-              </a>
+              </a></LivingCard>
             </Reveal>
           ))}
         </div>
@@ -261,10 +265,10 @@ function Index() {
         <div className="grid gap-5 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={i} i={i}>
-              <figure className="h-full glass rounded-2xl p-8">
+              <LivingCard><figure className="h-full glass rounded-2xl p-8">
                 <blockquote className="font-display text-xl leading-snug">“{t.q}”</blockquote>
                 <figcaption className="mt-6 text-sm"><span className="font-semibold">{t.n}</span><span className="text-muted-foreground"> · {t.r}</span></figcaption>
-              </figure>
+              </figure></LivingCard>
             </Reveal>
           ))}
         </div>
