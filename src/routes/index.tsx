@@ -4,6 +4,7 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToolsDock } from "@/components/tools-dock";
 import { LivingCard, CursorTrail } from "@/components/living-card";
+import { ProjectMatcher } from "@/components/project-matcher";
 import salesImg from "@/assets/n8n-200815.jpg";
 import agentImg from "@/assets/n8n-201520.jpg";
 import reportsImg from "@/assets/n8n-201638.jpg";
@@ -275,6 +276,7 @@ function Index() {
       </Section>
 
       <Section id="contact" label="05 — Contact" title="Let's automate your bottlenecks">
+        <Reveal className="mb-5"><ProjectMatcher /></Reveal>
         <Reveal className="grid gap-5 md:grid-cols-3">
           {[
             ["Email", "edsonhalili@gmail.com", "mailto:edsonhalili@gmail.com"],
