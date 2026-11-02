@@ -23,7 +23,7 @@ Given a client's project description:
 - inquiry: a friendly, concise email (120-180 words) written FROM the client TO Edson, describing their project and asking for a workflow audit call. Use placeholders like [Your name] where details are unknown. Never invent prices or commitments.`;
 
 export async function matchProject(description: string): Promise<{ ok: true; data: ProjectMatch } | { ok: false; error: string }> {
-  const apiKey = process.env.LOVABLE_API_KEY;
+  const apiKey = process.env['LOVABLE_API_KEY'];
   if (!apiKey) return { ok: false, error: "The AI assistant is not configured yet." };
   const runIdFetch = createLovableAiGatewayRunIdFetch();
   const provider = createOpenAI({
