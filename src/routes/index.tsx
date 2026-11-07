@@ -4,7 +4,6 @@ import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToolsDock } from "@/components/tools-dock";
 import { LivingCard, CursorTrail } from "@/components/living-card";
-import { ProjectMatcher } from "@/components/project-matcher";
 import salesImg from "@/assets/n8n-200815.jpg";
 import agentImg from "@/assets/n8n-201520.jpg";
 import reportsImg from "@/assets/n8n-201638.jpg";
@@ -86,6 +85,16 @@ function Section({ id, label, title, children }: { id: string; label: string; ti
   );
 }
 
+function CopyButton({ value }: { value: string }) {
+  const [copied, setCopied] = useState(false);
+  return (
+    <button type="button" className="btn-lux shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium" aria-live="polite"
+      onClick={async () => { await navigator.clipboard.writeText(value); setCopied(true); setTimeout(() => setCopied(false), 1600); }}>
+      {copied ? "Copied" : "Copy"}
+    </button>
+  );
+}
+
 function ThemeToggle() {
   const [dark, setDark] = useState(true);
   useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
@@ -138,11 +147,11 @@ function Index() {
       <CursorTrail />
       <header className="sticky top-0 z-20 px-4 pt-4">
         <nav className="glass mx-auto grid max-w-6xl grid-cols-[minmax(0,1fr)_auto] items-center gap-3 rounded-full px-5 py-3 md:flex md:justify-between">
-          <a href="#top" className="font-display text-xl">Edson<span className="text-primary">.</span></a>
+          <a href="#top" className="link-lux min-w-0 truncate font-display text-xl sm:text-2xl">Edson Halili</a>
           <div className="flex shrink-0 items-center gap-2 md:gap-6">
             <div className="hidden gap-6 text-sm text-muted-foreground md:flex">
               {["services", "experience", "works", "testimonials", "contact"].map((s) => (
-                <a key={s} href={`#${s}`} className="capitalize transition-colors hover:text-foreground">{s}</a>
+                <a key={s} href={`#${s}`} className="link-lux capitalize hover:text-foreground">{s}</a>
               ))}
             </div>
             <ThemeToggle />
@@ -163,20 +172,27 @@ function Index() {
               <Reveal><p className="font-mono text-xs uppercase tracking-widest text-primary">AI Automation Systems Specialist · Los Baños, PH</p></Reveal>
               <Reveal i={1}>
                 <h1 className="hero-title mt-5 max-w-4xl font-display">
-                  I help business owners stop <em className="text-primary">drowning</em> in repetitive work.
+                  I give your business back the hours lost to <em className="text-primary">manual work</em>.
                 </h1>
               </Reveal>
               <Reveal i={2}>
                 <p className="hero-description mt-6 max-w-2xl text-base text-muted-foreground lg:text-lg">
-                  17+ years running high-volume operations, data and inventory for one of the largest enterprises in the Philippines — now building AI workflows that save hours, cut errors and lower overhead.
+                  I design AI automations that run your follow-ups, reports, inventory and data entry for you — so your team stops copy-pasting and starts growing. Backed by 17+ years running high-volume operations for one of the largest enterprises in the Philippines.
                 </p>
               </Reveal>
-              <Reveal i={3} className="hero-actions mt-8 flex flex-wrap gap-3">
-                <Button asChild className="press hero-primary h-12 rounded-full px-6 font-semibold"><a href="#contact">Book a workflow audit</a></Button>
-                <Button asChild variant="ghost" className="press glass h-12 rounded-full px-6 font-semibold"><a href="#works">See my work</a></Button>
+              <Reveal i={3}>
+                <ul className="mt-6 grid gap-2 text-sm sm:grid-cols-2">
+                  {["Fewer errors in your data and stock", "Reports that build and send themselves", "Customer replies handled by AI, 24/7", "All your tools connected in one flow"].map((b) => (
+                    <li key={b} className="flex gap-2"><span className="text-primary">✓</span>{b}</li>
+                  ))}
+                </ul>
+              </Reveal>
+              <Reveal i={4} className="hero-actions mt-8 flex flex-wrap gap-3">
+                <Button asChild className="btn-lux hero-primary h-12 rounded-full px-7 font-medium"><a href="#contact">Book a free workflow audit</a></Button>
+                <Button asChild variant="outline" className="btn-lux h-12 rounded-full bg-transparent px-7 font-medium"><a href="#works">See my work</a></Button>
               </Reveal>
             </div>
-            <Reveal i={4} className="hero-portrait justify-self-center">
+            <Reveal i={5} className="hero-portrait justify-self-center">
               <LivingCard max={10} className="rounded-3xl">
                 <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
                   <img src={portraitImg} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
@@ -186,7 +202,7 @@ function Index() {
           </div>
           <div className="hero-stats grid grid-cols-3 gap-4 border-t border-border/50 pt-6">
             {[["17+", "Years in operations"], ["100%", "Stock precision"], ["5", "Certifications"]].map(([n, l], i) => (
-              <Reveal key={l} i={i + 5}>
+              <Reveal key={l} i={i + 6}>
                 <p className="font-display text-3xl text-primary sm:text-4xl">{n}</p>
                 <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{l}</p>
               </Reveal>
@@ -276,17 +292,21 @@ function Index() {
       </Section>
 
       <Section id="contact" label="05 — Contact" title="Let's automate your bottlenecks">
-        <Reveal className="mb-5"><ProjectMatcher /></Reveal>
-        <Reveal className="grid gap-5 md:grid-cols-3">
+        <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Tell me where your team loses time. I reply within one business day with where automation can help first.</p></Reveal>
+        <Reveal className="mt-10 overflow-hidden rounded-2xl border">
           {[
             ["Email", "edsonhalili@gmail.com", "mailto:edsonhalili@gmail.com"],
-            ["Mobile", "0949 347 7934", "tel:09493477934"],
+            ["Mobile / Messaging", "0949 347 7934", "tel:09493477934"],
             ["LinkedIn", "in/edson-halili", "https://www.linkedin.com/in/edson-halili"],
           ].map(([l, v, h]) => (
-            <a key={l} href={h} target={l === "LinkedIn" ? "_blank" : undefined} rel="noreferrer" className="lift block glass rounded-2xl p-8">
-              <p className="font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</p>
-              <p className="mt-3 font-display text-xl break-all">{v}</p>
-            </a>
+            <div key={l} className="contact-row flex items-center gap-4 border-b px-6 py-6 last:border-b-0 sm:px-8">
+              <a href={h} target={l === "LinkedIn" ? "_blank" : undefined} rel="noreferrer" className="link-lux flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-8">
+                <span className="w-44 shrink-0 font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</span>
+                <span className="min-w-0 font-display text-xl [overflow-wrap:anywhere] sm:text-3xl">{v}</span>
+              </a>
+              {l === "Email" && <CopyButton value={v} />}
+              <span className="arrow shrink-0 text-xl text-primary" aria-hidden>↗</span>
+            </div>
           ))}
         </Reveal>
       </Section>
