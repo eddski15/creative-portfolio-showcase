@@ -304,7 +304,7 @@ function Index() {
                 <span className="w-44 shrink-0 font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</span>
                 <span className="min-w-0 font-display text-xl [overflow-wrap:anywhere] sm:text-3xl">{v}</span>
               </a>
-              {l === "Email" && <CopyButton value={v} />}
+              {l === "Email" && <CopyButton value={v ?? ""} />}
               <span className="arrow shrink-0 text-xl text-primary" aria-hidden>↗</span>
             </div>
           ))}
