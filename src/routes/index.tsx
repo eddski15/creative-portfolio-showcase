@@ -1,14 +1,10 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { works, workCategories } from "@/lib/works";
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ToolsDock } from "@/components/tools-dock";
 import { LivingCard, CursorTrail } from "@/components/living-card";
-import salesImg from "@/assets/n8n-200815.jpg";
-import agentImg from "@/assets/n8n-201520.jpg";
-import reportsImg from "@/assets/n8n-201638.jpg";
-import weeklyImg from "@/assets/n8n-202148.jpg";
-import processpilotImg from "@/assets/processpilot-discovery.jpg";
 import portraitImg from "@/assets/edson-portrait.jpg";
 
 export const Route = createFileRoute("/")({
@@ -51,14 +47,6 @@ const experience = [
       "Earned 16 years of customer loyalty through personalized, high-touch service.",
     ],
   },
-];
-
-const works = [
-  { t: "Sales Data Pipeline", tag: "n8n · HTTP · CSV", img: salesImg, d: "Pulls sales data, totals each order and splits into 3 branches: order data to the warehouse, a regional analysis to finance, and a CSV report to the manager." },
-  { t: "AI Customer & Sales Agent", tag: "n8n · AI Agent · Gemini", img: agentImg, d: "A chat-based AI agent with memory that looks up customers and orders on its own, then answers with a full customer list and total sales report." },
-  { t: "Automated Report Generation", tag: "n8n · Merge · Discord", img: reportsImg, d: "Merges order and customer data, calculates totals, builds a Europe-only CSV and regional summaries, then posts results to a Discord channel." },
-  { t: "Weekly Order Status Workflow", tag: "n8n · Schedule · Discord", img: weeklyImg, d: "Runs every Monday at 9AM: fetches warehouse data, checks order status, updates customer records and sends booked order totals to Discord." },
-  { t: "ProcessPilot AI", tag: "Web App · AI Copilot", img: processpilotImg, ongoing: true, d: "My ongoing build: a process discovery copilot that interviews business owners, maps their real workflows step by step, and turns each session into an implementation brief — with a private client-projects workspace and an internal AI Development Office to plan its own development." },
 ];
 
 const testimonials = [
@@ -114,6 +102,40 @@ function ThemeToggle() {
   );
 }
 
+function WorkGrid() {
+  const [cat, setCat] = useState<(typeof workCategories)[number]>("All");
+  const list = works.filter((w) => cat === "All" || w.category === cat);
+  return (
+    <>
+      <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects">
+        {workCategories.map((c) => (
+          <button key={c} role="tab" aria-selected={cat === c} onClick={() => setCat(c)}
+            className={`btn-lux press rounded-full border px-4 py-2 text-sm ${cat === c ? "bg-primary text-primary-foreground border-primary" : "text-muted-foreground hover:text-foreground"}`}>{c}</button>
+        ))}
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {list.map((w) => (
+          <Link key={w.slug} to="/work/$slug" params={{ slug: w.slug }} className="work-card group glass block overflow-hidden rounded-2xl">
+            <div className="relative aspect-[4/3] overflow-hidden bg-muted">
+              <img src={w.img} alt={`${w.t} preview`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
+              <div className="work-overlay absolute inset-0 flex flex-col justify-end p-6">
+                <p className="font-mono text-[11px] uppercase tracking-widest text-primary">{w.role}</p>
+                <h3 className="mt-2 font-display text-2xl text-card-foreground">{w.t}</h3>
+                <p className="mt-2 text-sm text-card-foreground">View case study →</p>
+              </div>
+              {w.ongoing && <span className="absolute left-4 top-4 rounded-full bg-primary px-2.5 py-1 text-[11px] font-medium text-primary-foreground">In progress</span>}
+            </div>
+            <div className="flex items-center justify-between gap-3 px-5 py-4">
+              <p className="min-w-0 truncate font-medium">{w.t}</p>
+              <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{w.category}</span>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+}
+
 function Index() {
   const [menuOpen, setMenuOpen] = useState(false);
   useEffect(() => {
@@ -150,8 +172,8 @@ function Index() {
           <a href="#top" className="link-lux min-w-0 truncate font-display text-xl sm:text-2xl">Edson Halili</a>
           <div className="flex shrink-0 items-center gap-2 md:gap-6">
             <div className="hidden gap-6 text-sm text-muted-foreground md:flex">
-              {["services", "experience", "works", "testimonials", "contact"].map((s) => (
-                <a key={s} href={`#${s}`} className="link-lux capitalize hover:text-foreground">{s}</a>
+              {[["Home","top"],["Work","works"],["About","experience"],["Contact","contact"]].map(([n,id]) => (
+                <a key={id} href={`#${id}`} className="link-lux hover:text-foreground">{n}</a>
               ))}
             </div>
             <ThemeToggle />
@@ -161,7 +183,7 @@ function Index() {
           </div>
         </nav>
         {menuOpen && <nav id="mobile-navigation" aria-label="Mobile navigation" className="glass absolute left-4 right-4 top-full mt-2 grid gap-1 rounded-2xl p-3 md:hidden">
-          {["services", "experience", "works", "testimonials", "contact"].map(s => <Button key={s} asChild variant="ghost" className="justify-start capitalize" onClick={() => setMenuOpen(false)}><a href={`#${s}`}>{s}</a></Button>)}
+          {[["Home","top"],["Work","works"],["About","experience"],["Contact","contact"]].map(([n,id]) => <Button key={id} asChild variant="ghost" className="justify-start" onClick={() => setMenuOpen(false)}><a href={`#${id}`}>{n}</a></Button>)}
         </nav>}
       </header>
 
@@ -257,25 +279,7 @@ function Index() {
       <ToolsDock />
 
       <Section id="works" label="03 — Previous works" title="Workflows I've built — and my ongoing build">
-        <div className="bento bento-3">
-          {works.map((w, i) => (
-            <Reveal key={w.t} i={i} className={w.ongoing ? "bento-wide" : ""}>
-              <LivingCard><a href={w.img} target="_blank" rel="noreferrer" className="lift press group block h-full overflow-hidden glass rounded-2xl">
-                <div className="aspect-[16/9] overflow-hidden border-b bg-muted">
-                  <img src={w.img} alt={`${w.t} workflow in n8n`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
-                </div>
-                <div className="p-8">
-                  <p className="flex items-center gap-2 font-mono text-xs uppercase tracking-wider text-accent">
-                    {w.tag}
-                    {w.ongoing && <span className="rounded-full border border-primary/40 bg-primary/10 px-2 py-0.5 text-[10px] normal-case tracking-normal text-primary">In progress</span>}
-                  </p>
-                  <h3 className="mt-3 font-display text-2xl">{w.t}</h3>
-                  <p className="mt-3 text-muted-foreground">{w.d}</p>
-                </div>
-              </a></LivingCard>
-            </Reveal>
-          ))}
-        </div>
+        <WorkGrid />
       </Section>
 
       <Section id="testimonials" label="04 — Testimonials" title="Kind words">

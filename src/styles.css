@@ -240,3 +240,10 @@ body { min-width: 320px; }
 @media (min-width: 1024px) { .bento-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } .bento-3 > .bento-wide { grid-column: span 2; } }
 :root { --orb-a: color-mix(in oklab, var(--primary) 70%, transparent); --orb-b: color-mix(in oklab, var(--accent) 35%, transparent); --orb-c: color-mix(in oklab, var(--primary) 45%, transparent); --orb-d: color-mix(in oklab, var(--accent) 25%, transparent); }
 .dark { --orb-a: color-mix(in oklab, var(--primary) 45%, transparent); --orb-b: color-mix(in oklab, var(--accent) 55%, transparent); --orb-c: color-mix(in oklab, var(--primary) 30%, transparent); --orb-d: color-mix(in oklab, var(--accent) 40%, transparent); }
+
+/* Project grid: overlay reveals name + role on hover/focus; always visible on touch. */
+.work-card { transition: transform 200ms var(--ease-out), border-color 200ms ease; }
+.work-overlay { background: linear-gradient(to top, color-mix(in oklab, var(--card) 94%, transparent), color-mix(in oklab, var(--card) 40%, transparent) 70%, transparent); opacity: 0; transform: translateY(8px); transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out); }
+.work-card:focus-visible .work-overlay { opacity: 1; transform: none; }
+@media (hover: hover) and (pointer: fine) { .work-card:hover { transform: translateY(-4px); border-color: var(--primary); } .work-card:hover .work-overlay { opacity: 1; transform: none; } }
+@media (hover: none) { .work-overlay { display: none; } }
