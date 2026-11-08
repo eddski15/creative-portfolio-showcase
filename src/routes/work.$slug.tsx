@@ -24,7 +24,7 @@ export const Route = createFileRoute("/work/$slug")({
 function CaseStudy() {
   const { work: w } = Route.useLoaderData();
   const idx = works.findIndex((x) => x.slug === w.slug);
-  const next = works[(idx + 1) % works.length];
+  const next = works[(idx + 1) % works.length] ?? works[0]!;
   return (
     <div className="relative min-h-screen">
       <div className="orbs" aria-hidden><span /><span /><span /><span /></div>
