@@ -74,16 +74,6 @@ function Section({ id, label, title, children }: { id: string; label: string; ti
   );
 }
 
-function CopyButton({ value }: { value: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button type="button" className="btn-lux shrink-0 rounded-full border px-3 py-1.5 text-xs font-medium" aria-live="polite"
-      onClick={async () => { await navigator.clipboard.writeText(value); setCopied(true); setTimeout(() => setCopied(false), 1600); }}>
-      {copied ? "Copied" : "Copy"}
-    </button>
-  );
-}
-
 function ThemeToggle() {
   const [dark, setDark] = useState(true);
   useEffect(() => setDark(document.documentElement.classList.contains("dark")), []);
@@ -299,27 +289,11 @@ function Index() {
       <Section id="contact" label="05 — Contact" title="Book a discovery call">
         <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Choose the system you want built, then pick a time for a free 30-minute call.</p></Reveal>
         <BookingCalendar />
-        <p className="mt-12 font-mono text-xs uppercase tracking-widest text-muted-foreground">Prefer to reach out directly?</p>
-        <Reveal className="mt-4 overflow-hidden rounded-2xl border">
-          {[
-            ["Email", "edsonhalili@gmail.com", "mailto:edsonhalili@gmail.com"],
-            ["Mobile / Messaging", "0949 347 7934", "tel:09493477934"],
-            ["LinkedIn", "in/edson-halili", "https://www.linkedin.com/in/edson-halili"],
-          ].map(([l, v, h]) => (
-            <div key={l} className="contact-row flex items-center gap-4 border-b px-6 py-6 last:border-b-0 sm:px-8">
-              <a href={h} target={l === "LinkedIn" ? "_blank" : undefined} rel="noreferrer" className="link-lux flex min-w-0 flex-1 flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-8">
-                <span className="w-44 shrink-0 font-mono text-xs uppercase tracking-widest text-muted-foreground">{l}</span>
-                <span className="min-w-0 font-display text-xl [overflow-wrap:anywhere] sm:text-3xl">{v}</span>
-              </a>
-              {l === "Email" && <CopyButton value={v ?? ""} />}
-              <span className="arrow shrink-0 text-xl text-primary" aria-hidden>↗</span>
-            </div>
-          ))}
-        </Reveal>
       </Section>
 
       <footer className="py-10 text-center text-sm text-muted-foreground">
-        © 2026 Edson Halili · Los Baños, Laguna, Philippines
+        © 2026 Edson Halili · Los Baños, Laguna, Philippines ·{" "}
+        <a href="https://www.linkedin.com/in/edson-halili" target="_blank" rel="noreferrer" className="link-lux text-foreground">LinkedIn ↗</a>
       </footer>
     </div>
   );

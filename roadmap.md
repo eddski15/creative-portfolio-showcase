@@ -5,3 +5,4 @@
 - [x] Verify layouts and interactions across screen sizes.
 - [x] Bundle images locally and optimize them for fast loading.
 - [x] Add Render and Netlify deploy configs; verify both build targets run.
+- [x] Remove direct-contact rows from Contact; keep LinkedIn in footer.
