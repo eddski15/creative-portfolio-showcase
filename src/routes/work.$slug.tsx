@@ -47,6 +47,7 @@ function CaseStudy() {
             <ol className="mt-3 space-y-2 text-muted-foreground">{w.process.map((p, i) => <li key={p} className="flex gap-3"><span className="text-primary">{i + 1}.</span>{p}</li>)}</ol>
           </section>
           <section><p className="font-mono text-xs uppercase tracking-widest text-primary">03 — Solution</p><p className="mt-3 text-lg">{w.solution}</p></section>
+          <section><p className="font-mono text-xs uppercase tracking-widest text-primary">04 — Outcome</p><p className="mt-3 text-lg">{w.outcome}</p></section>
         </div>
         <div className="mt-16 flex flex-wrap items-center justify-between gap-4 border-t pt-8">
           <Button asChild className="btn-lux hero-primary h-12 rounded-full px-7"><Link to="/" hash="contact">Start a similar project</Link></Button>

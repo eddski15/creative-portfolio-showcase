@@ -3,6 +3,7 @@ import { works, workCategories } from "@/lib/works";
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { BookingCalendar } from "@/components/booking-calendar";
 import { ToolsDock } from "@/components/tools-dock";
 import { LivingCard, CursorTrail } from "@/components/living-card";
 import portraitImg from "@/assets/edson-portrait.jpg";
@@ -295,9 +296,11 @@ function Index() {
         </div>
       </Section>
 
-      <Section id="contact" label="05 — Contact" title="Let's automate your bottlenecks">
-        <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Tell me where your team loses time. I reply within one business day with where automation can help first.</p></Reveal>
-        <Reveal className="mt-10 overflow-hidden rounded-2xl border">
+      <Section id="contact" label="05 — Contact" title="Book a discovery call">
+        <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Choose the system you want built, then pick a time for a free 30-minute call.</p></Reveal>
+        <BookingCalendar />
+        <p className="mt-12 font-mono text-xs uppercase tracking-widest text-muted-foreground">Prefer to reach out directly?</p>
+        <Reveal className="mt-4 overflow-hidden rounded-2xl border">
           {[
             ["Email", "edsonhalili@gmail.com", "mailto:edsonhalili@gmail.com"],
             ["Mobile / Messaging", "0949 347 7934", "tel:09493477934"],
