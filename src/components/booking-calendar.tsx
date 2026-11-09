@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 
-export const CAL_LINK = "edsonhalili/30min";
+export const CAL_LINK = "edson-halili-uaojuo";
 
 export const bookingServices = [
   "Intelligent Customer Inquiry & Triage Assistant",
