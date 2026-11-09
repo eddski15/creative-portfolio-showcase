@@ -51,9 +51,9 @@ const experience = [
 ];
 
 const testimonials = [
-  { q: "Edson saw exactly where our process was leaking time. Within weeks our follow-ups ran themselves.", n: "Client name", r: "Small business owner" },
-  { q: "Reliable, detail-obsessed and calm under pressure. His inventory work was always spot on.", n: "Client name", r: "Former colleague" },
-  { q: "He doesn't just add tools — he builds a system that actually fits how we work.", n: "Client name", r: "Operations lead" },
+  { q: "Edson saw exactly where our process was leaking time. Within weeks our follow-ups ran themselves.", n: "Luzviminda de Mesa", r: "MDC 364 - Branch Manager" },
+  { q: "Reliable, detail-obsessed and calm under pressure. His inventory work was always spot on.", n: "Ardi Nil Driz", r: "MDC 75 - Branch Manager" },
+  { q: "He doesn't just add tools — he builds a system that actually fits how we work.", n: "Leo Ante", r: "MDC 45 - Branch Manager" },
 ];
 
 const certs = ["AI Operator", "AI for Project Managers", "Zapier Automation", "HighLevel CRM Full Training", "GoHighLevel Workshop"];
