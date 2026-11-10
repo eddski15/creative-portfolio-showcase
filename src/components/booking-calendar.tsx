@@ -66,7 +66,8 @@ export function BookingCalendar() {
     const ns = `book-${theme}-${service ? bookingServices.indexOf(service as (typeof bookingServices)[number]) : "x"}`;
     const Cal = loadCal();
     Cal("init", ns, { origin: "https://app.cal.com" });
-    const api = Cal.ns![ns];
+    const api = Cal.ns?.[ns];
+    if (!api) return;
     api("inline", {
       elementOrSelector: el,
       calLink: CAL_LINK,
