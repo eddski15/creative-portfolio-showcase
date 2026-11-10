@@ -190,7 +190,10 @@ body { min-width: 320px; }
 .tool-symbol { display: grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0; }
 .tool-symbol svg { width: 26px; height: 26px; }
 .tool-label { font-size: 10px; font-weight: 600; line-height: 1.2; text-align: center; white-space: normal; }
-.tool-link:hover, .tool-link:focus-visible { background: var(--secondary); color: var(--primary); transform: translateY(-5px); }
+.tool-link:focus-visible { background: var(--secondary); color: var(--primary); }
+@media (hover: hover) and (pointer: fine) { .tool-link:hover { background: var(--secondary); color: var(--primary); transform: translateY(-5px); } }
+#top { scroll-margin-top: 96px; }
+@media (min-width: 768px) and (max-width: 1023px) { .bento-3 > .bento-wide { grid-column: span 2; } }
 @keyframes dock-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @media (min-width: 600px) {
   .hero-inner { padding-top: 64px; padding-bottom: 48px; }

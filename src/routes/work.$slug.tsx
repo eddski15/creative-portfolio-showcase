@@ -41,7 +41,7 @@ function CaseStudy() {
         <figure className="glass mt-10 overflow-hidden rounded-3xl p-2">
           <img src={w.img} alt={`${w.t} screenshot`} className="w-full rounded-2xl" />
         </figure>
-        <div className="mt-14 grid gap-10 md:grid-cols-3">
+        <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <section><p className="font-mono text-xs uppercase tracking-widest text-primary">01 — Problem</p><p className="mt-3 text-lg">{w.problem}</p></section>
           <section><p className="font-mono text-xs uppercase tracking-widest text-primary">02 — Process</p>
             <ol className="mt-3 space-y-2 text-muted-foreground">{w.process.map((p, i) => <li key={p} className="flex gap-3"><span className="text-primary">{i + 1}.</span>{p}</li>)}</ol>

@@ -65,7 +65,7 @@ function Reveal({ children, i = 0, className = "" }: { children: ReactNode; i?: 
 
 function Section({ id, label, title, children }: { id: string; label: string; title: string; children: ReactNode }) {
   return (
-    <section id={id} className="portfolio-section mx-auto max-w-6xl px-6 py-16 md:py-24">
+    <section id={id} className="portfolio-section mx-auto max-w-6xl scroll-mt-24 px-5 py-14 sm:px-6 md:py-20 lg:py-24">
       <Reveal>
         <p className="font-mono text-xs uppercase tracking-widest text-primary">{label}</p>
         <h2 className="mt-3 font-display text-3xl sm:text-4xl lg:text-5xl">{title}</h2>
@@ -102,7 +102,7 @@ function WorkGrid() {
       <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects">
         {workCategories.map((c) => (
           <button key={c} role="tab" aria-selected={cat === c} onClick={() => setCat(c)}
-            className={`btn-lux press rounded-full border px-4 py-2 text-sm ${cat === c ? "bg-primary text-primary-foreground border-primary" : "text-muted-foreground hover:text-foreground"}`}>{c}</button>
+            className={`btn-lux press min-h-11 rounded-full border px-4 py-2 text-sm ${cat === c ? "bg-primary text-primary-foreground border-primary" : "text-muted-foreground hover:text-foreground"}`}>{c}</button>
         ))}
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -293,7 +293,7 @@ function Index() {
       </Section>
 
       <Section id="testimonials" label="05 — Testimonials" title="Kind words">
-        <div className="grid gap-5 md:grid-cols-3">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={i} i={i}>
               <LivingCard><figure className="h-full glass rounded-2xl p-8">
