@@ -1,3 +1,4 @@
+import { certifications } from "@/lib/certifications";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { works, workCategories } from "@/lib/works";
 import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
@@ -214,7 +215,7 @@ function Index() {
             </Reveal>
           </div>
           <div className="hero-stats grid grid-cols-3 gap-4 border-t border-border/50 pt-6">
-            {[["17+", "Years in operations"], ["100%", "Stock precision"], ["5", "Certifications"]].map(([n, l], i) => (
+            {[["17+", "Years in operations"], ["100%", "Stock precision"], ["9", "Certifications"]].map(([n, l], i) => (
               <Reveal key={l} i={i + 6}>
                 <p className="font-display text-3xl text-primary sm:text-4xl">{n}</p>
                 <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{l}</p>
@@ -273,7 +274,25 @@ function Index() {
         <WorkGrid />
       </Section>
 
-      <Section id="testimonials" label="04 — Testimonials" title="Kind words">
+      <Section id="certifications" label="04 — Certifications" title="Verified credentials & skills">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {certifications.map((c, i) => (
+            <Reveal key={c.url} i={i % 3}>
+              <LivingCard className="h-full"><article className="glass flex h-full flex-col rounded-2xl p-6">
+                <p className="font-mono text-[11px] uppercase tracking-wider text-primary">{c.issuer} · {c.date}</p>
+                <h3 className="mt-3 font-display text-2xl leading-tight">{c.title}</h3>
+                <p className="mt-3 text-sm text-muted-foreground">{c.learning}</p>
+                <ul className="mt-4 flex flex-wrap gap-1.5">
+                  {c.skills.map((s) => <li key={s} className="rounded-full border border-border px-2.5 py-0.5 text-xs">{s}</li>)}
+                </ul>
+                <a href={c.url} target="_blank" rel="noreferrer" className="link-lux mt-auto pt-5 text-sm font-medium text-primary">Verify credential ↗</a>
+              </article></LivingCard>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section id="testimonials" label="05 — Testimonials" title="Kind words">
         <div className="grid gap-5 md:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={i} i={i}>
@@ -286,7 +305,7 @@ function Index() {
         </div>
       </Section>
 
-      <Section id="contact" label="05 — Contact" title="Book a discovery call">
+      <Section id="contact" label="06 — Contact" title="Book a discovery call">
         <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Choose the system you want built, then pick a time for a free 30-minute call.</p></Reveal>
         <BookingCalendar />
       </Section>
