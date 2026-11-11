@@ -25,15 +25,15 @@ export const Route = createFileRoute("/")({
 });
 
 const services = [
-  { t: "Workflow Audit", d: "I study how your business actually runs day-to-day and pinpoint what should be automated first." },
-  { t: "AI Integration", d: "Connecting the tools you already use to handle data, scheduling and customer outreach on autopilot." },
-  { t: "Data & Inventory Automation", d: "No more manual stock counts or spreadsheet errors — systems that track every unit for you." },
-  { t: "Executive Support", d: "High-level admin strategy, built for speed with AI agents, LLMs and smart workflows." },
+  { t: "Workflow Audit", tag: "Find", flow: ["Your process", "Bottleneck map", "Priority plan"], d: "I study how your business actually runs day-to-day and pinpoint what should be automated first." },
+  { t: "AI Integration", tag: "Connect", flow: ["Inbox & CRM", "AI agent", "Auto replies"], d: "Connecting the tools you already use to handle data, scheduling and customer outreach on autopilot." },
+  { t: "Data & Inventory Automation", tag: "Track", flow: ["Stock data", "Checks", "Live report"], d: "No more manual stock counts or spreadsheet errors — systems that track every unit for you." },
+  { t: "Executive Support", tag: "Lead", flow: ["Requests", "AI assist", "Done"], d: "High-level admin strategy, built for speed with AI agents, LLMs and smart workflows." },
 ];
 
 const experience = [
   {
-    role: "Data Operations Analyst / Inventory Control Analyst", co: "Mercury Drug Corp.", when: "Dec 2024 — Jul 2026",
+    role: "Data Operations Analyst / Inventory Control Analyst", co: "Mercury Drug Corp.", when: "Dec 2024 — Jul 2026", scope: "Branch operations & data", wins: ["100% data integrity", "Leaner inventory", "Supplier liaison"],
     pts: [
       "Audited and streamlined daily operational workflows with the Branch Manager to speed up stock movement and sales.",
       "Oversaw high-volume data recording, accounts receivable and digital filing with 100% data integrity.",
@@ -42,7 +42,7 @@ const experience = [
     ],
   },
   {
-    role: "Pharmacy Assistant", co: "Mercury Drug Corp.", when: "Sep 2008 — Nov 2024",
+    role: "Pharmacy Assistant", co: "Mercury Drug Corp.", when: "Sep 2008 — Nov 2024", scope: "High-volume retail pharmacy", wins: ["Zero-expiry-loss target", "Real-time stock tracking", "16 yrs customer loyalty"],
     pts: [
       "Prevented stockouts with real-time inventory tracking down to the last unit.",
       "Targeted zero expiry loss through early-expiry monitoring and proactive stock rotation.",
@@ -100,10 +100,10 @@ function WorkGrid() {
   const list = works.filter((w) => cat === "All" || w.category === cat);
   return (
     <>
-      <div className="mb-8 flex flex-wrap gap-2" role="tablist" aria-label="Filter projects">
+      <div className="filter-bar glass mb-8 flex w-fit max-w-full flex-wrap gap-1 rounded-full p-1.5" role="tablist" aria-label="Filter projects">
         {workCategories.map((c) => (
           <button key={c} role="tab" aria-selected={cat === c} onClick={() => setCat(c)}
-            className={`btn-lux press min-h-11 rounded-full border px-4 py-2 text-sm ${cat === c ? "bg-primary text-primary-foreground border-primary" : "text-muted-foreground hover:text-foreground"}`}>{c}</button>
+            className={`btn-lux press min-h-10 rounded-full border border-transparent px-4 py-2 text-sm ${cat === c ? "bg-primary text-primary-foreground border-primary" : "text-muted-foreground hover:text-foreground"}`}>{c}</button>
         ))}
       </div>
       <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -120,7 +120,7 @@ function WorkGrid() {
             </div>
             <div className="flex items-center justify-between gap-3 px-5 py-4">
               <p className="min-w-0 truncate font-medium">{w.t}</p>
-              <span className="shrink-0 font-mono text-[11px] uppercase tracking-wider text-muted-foreground">{w.category}</span>
+              <span className="metric-chip shrink-0">{w.category}</span>
             </div>
           </Link>
         ))}
@@ -184,10 +184,10 @@ function Index() {
         <div className="hero-inner mx-auto max-w-6xl px-6">
           <div className="hero-layout grid items-center">
             <div className="hero-copy min-w-0">
-              <Reveal><p className="font-mono text-xs uppercase tracking-widest text-primary">AI Automation Systems Specialist · Los Baños, PH</p></Reveal>
+              <Reveal><p className="status-pill"><span className="status-dot" aria-hidden />Available for new automation projects · Los Baños, PH</p></Reveal>
               <Reveal i={1}>
                 <h1 className="hero-title mt-5 max-w-4xl font-display">
-                  I give your business back the hours lost to <em className="text-primary">manual work</em>.
+                  Replacing hours of <em className="text-primary">manual operations</em> with AI systems that just run.
                 </h1>
               </Reveal>
               <Reveal i={2}>
@@ -203,8 +203,8 @@ function Index() {
                 </ul>
               </Reveal>
               <Reveal i={4} className="hero-actions mt-8 flex flex-wrap gap-3">
-                <Button asChild className="btn-lux hero-primary h-12 rounded-full px-7 font-medium"><a href="#contact">Book a free workflow audit</a></Button>
-                <Button asChild variant="outline" className="btn-lux h-12 rounded-full bg-transparent px-7 font-medium"><a href="#works">See my work</a></Button>
+                <Button asChild className="btn-lux hero-primary h-12 rounded-full px-7 font-medium"><a href="#contact">Book a workflow audit →</a></Button>
+                <Button asChild variant="outline" className="btn-lux h-12 rounded-full bg-transparent px-7 font-medium"><a href="#works">Explore my workflows</a></Button>
               </Reveal>
             </div>
             <Reveal i={5} className="hero-portrait justify-self-center">
@@ -212,6 +212,11 @@ function Index() {
                 <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
                   <img src={portraitImg} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
                 </div>
+                <div className="proof-node glass" aria-label="Example automation flow">
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Example flow · live</p>
+                  <p className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs font-medium"><span>Stock mismatch</span><span className="text-primary">→</span><span>AI triage</span><span className="text-primary">→</span><span>Alert sent</span></p>
+                </div>
+                <div className="cred-chip glass"><span className="font-display text-lg text-primary">17+</span><span className="text-[11px] leading-tight text-muted-foreground">yrs enterprise ops<br />9 verified certs</span></div>
               </LivingCard>
             </Reveal>
           </div>
@@ -231,9 +236,10 @@ function Index() {
           {services.map((s, i) => (
             <Reveal key={s.t} i={i} className={i === 0 || i === 3 ? "bento-wide" : ""}>
               <LivingCard><div className="lift h-full glass rounded-2xl p-8">
-                <p className="font-mono text-sm text-accent">0{i + 1}</p>
-                <h3 className="mt-4 font-display text-2xl">{s.t}</h3>
-                <p className="mt-3 text-muted-foreground">{s.d}</p>
+                <div className="flex items-center justify-between gap-3"><p className="font-mono text-sm text-accent">0{i + 1}</p><span className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">{s.tag}</span></div>
+                <h3 className="mt-4 font-display text-2xl sm:text-3xl">{s.t}</h3>
+                <p className="mt-3 max-w-xl text-muted-foreground">{s.d}</p>
+                <div className="pipeline mt-6" aria-hidden>{s.flow.map((f, k) => <span key={f} className="pipe-step" style={{ "--k": k } as CSSProperties}>{f}</span>)}</div>
               </div></LivingCard>
             </Reveal>
           ))}
@@ -241,32 +247,40 @@ function Index() {
       </Section>
 
       <Section id="experience" label="02 — Experience" title="Career journey">
-        <div className="space-y-12">
+        <ol className="timeline">
           {experience.map((e, i) => (
-            <Reveal key={e.role} i={i} className="grid gap-6 md:grid-cols-[240px_1fr]">
-              <div>
+            <Reveal key={e.role} i={i} className="tl-item">
+              <span className="tl-node font-mono" aria-hidden>0{i + 1}</span>
+              <div className="tl-era">
                 <p className="font-mono text-sm text-primary">{e.when}</p>
                 <p className="mt-1 text-sm text-muted-foreground">{e.co}</p>
+                <span className="mt-3 inline-block rounded-full border border-border px-3 py-1 text-[11px] uppercase tracking-wider text-muted-foreground">{e.scope}</span>
               </div>
-              <div>
-                <h3 className="font-display text-2xl">{e.role}</h3>
-                <ul className="mt-4 space-y-2 text-muted-foreground">
+              <div className="glass tl-card rounded-2xl">
+                <h3 className="font-display text-2xl sm:text-3xl">{e.role}</h3>
+                <div className="mt-4 flex flex-wrap gap-2">{e.wins.map((w) => <span key={w} className="metric-chip">{w}</span>)}</div>
+                <ul className="mt-5 space-y-2 text-muted-foreground">
                   {e.pts.map((p) => <li key={p} className="flex gap-3"><span className="text-primary">→</span>{p}</li>)}
                 </ul>
               </div>
             </Reveal>
           ))}
-          <Reveal className="grid gap-6 md:grid-cols-[240px_1fr]">
-            <p className="font-mono text-sm text-primary">Education & Certs</p>
-            <div>
-              <h3 className="font-display text-2xl">BS Information Technology</h3>
+          <Reveal className="tl-item">
+            <span className="tl-node font-mono" aria-hidden>03</span>
+            <div className="tl-era"><p className="font-mono text-sm text-primary">Education & Certs</p></div>
+            <div className="glass tl-card rounded-2xl">
+              <h3 className="font-display text-2xl sm:text-3xl">BS Information Technology</h3>
               <p className="text-muted-foreground">Laguna State Polytechnic University — Los Baños</p>
               <div className="mt-4 flex flex-wrap gap-2">
-                {certs.map((c) => <span key={c} className="glass rounded-full px-3 py-1 text-sm">{c}</span>)}
+                {certs.map((c) => <span key={c} className="rounded-full border border-border px-3 py-1 text-sm">{c}</span>)}
               </div>
             </div>
           </Reveal>
-        </div>
+          <Reveal className="tl-bridge">
+            <p className="font-display text-2xl sm:text-3xl">From <em className="text-primary">physical inventory discipline</em> to autonomous AI systems.</p>
+            <p className="mt-2 text-sm text-muted-foreground">The same accuracy that kept every unit counted now powers the workflows I build.</p>
+          </Reveal>
+        </ol>
       </Section>
 
       <ToolsDock />
@@ -301,9 +315,10 @@ function Index() {
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={i} i={i}>
-              <LivingCard><figure className="h-full glass rounded-2xl p-8">
-                <blockquote className="font-display text-xl leading-snug">“{t.q}”</blockquote>
-                <figcaption className="mt-6 text-sm"><span className="font-semibold">{t.n}</span><span className="text-muted-foreground"> · {t.r}</span></figcaption>
+              <LivingCard className="h-full"><figure className="quote-card h-full glass flex flex-col rounded-2xl p-8">
+                <div className="flex items-center justify-between"><span className="font-display text-5xl leading-none text-primary" aria-hidden>“</span><span className="metric-chip">{t.r.split(" - ")[0]}</span></div>
+                <blockquote className="mt-4 flex-1 font-display text-xl leading-snug sm:text-2xl">{t.q}</blockquote>
+                <figcaption className="mt-6 border-t border-border pt-4 text-sm"><span className="block font-semibold">{t.n}</span><span className="text-muted-foreground">{t.r.split(" - ")[1]}</span></figcaption>
               </figure></LivingCard>
             </Reveal>
           ))}
@@ -319,7 +334,10 @@ function Index() {
       </Section>
 
       <Section id="contact" label="09 — Contact" title="Book a discovery call">
-        <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Choose the system you want built, then pick a time for a free 30-minute call.</p></Reveal>
+        <Reveal className="grid gap-6 md:grid-cols-[1.2fr_1fr] md:items-end">
+          <p className="max-w-2xl text-lg text-muted-foreground">Choose the system you want built, then pick a time for a free discovery call.</p>
+          <ol className="grid gap-2 text-sm">{["We map your current workflow", "I flag the biggest time leaks", "You leave with a clear next step"].map((x, k) => <li key={x} className="flex gap-3"><span className="font-mono text-primary">0{k + 1}</span>{x}</li>)}</ol>
+        </Reveal>
         <BookingCalendar />
       </Section>
 

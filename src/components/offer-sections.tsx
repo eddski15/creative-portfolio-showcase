@@ -28,10 +28,11 @@ export const faqs = [
 
 export function ResultsGrid() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      {results.map((r) => (
-        <div key={r.ref} className="glass rounded-2xl p-7">
-          <p className="font-display text-4xl text-primary">{r.m}</p>
+    <div className="kpi-grid grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      {results.map((r, i) => (
+        <div key={r.ref} className={`glass kpi rounded-2xl p-7 ${i === 0 ? "lg:col-span-2" : ""}`}>
+          <p className="font-display text-5xl tabular-nums text-primary sm:text-6xl">{r.m}</p>
+          <div className="kpi-bar mt-4" aria-hidden><span /></div>
           <h3 className="mt-3 text-lg font-medium">{r.h}</h3>
           <p className="mt-2 text-sm text-muted-foreground">{r.d}</p>
           <p className="mt-4 font-mono text-xs text-accent">{r.ref}</p>
@@ -45,16 +46,15 @@ export function PackagesGrid() {
   return (
     <div className="grid gap-4 lg:grid-cols-3">
       {packages.map((p) => (
-        <div key={p.n} className={`glass flex flex-col rounded-2xl p-7 ${p.popular ? "ring-2 ring-primary" : ""}`}>
-          {p.popular && <span className="mb-3 w-fit rounded-full bg-primary px-3 py-1 text-xs text-primary-foreground">Most popular</span>}
+        <div key={p.n} className={`glass flex flex-col rounded-2xl p-7 ${p.popular ? "pkg-featured lg:-translate-y-3" : ""}`}>
+          <div className="mb-4 flex flex-wrap items-center gap-2">{p.popular && <span className="rounded-full bg-primary px-3 py-1 text-xs font-medium text-primary-foreground">Recommended</span>}<span className="metric-chip">{p.t}</span></div>
           <h3 className="font-display text-2xl">{p.n}</h3>
           <p className="mt-3 font-display text-3xl text-primary">{p.p}</p>
-          <p className="mt-1 text-xs text-muted-foreground">{p.t}</p>
-          <p className="mt-4 text-sm text-muted-foreground">{p.fit}</p>
+                    <p className="mt-4 text-sm text-muted-foreground">{p.fit}</p>
           <ul className="mt-5 flex-1 space-y-2 text-sm">
             {p.items.map((i) => <li key={i} className="flex gap-2"><Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />{i}</li>)}
           </ul>
-          <a href="#contact" className="mt-6 inline-flex min-h-11 items-center justify-center rounded-full border border-border px-5 text-sm font-medium transition-colors hover:bg-primary hover:text-primary-foreground">Book a discovery call</a>
+          <a href="#contact" className={`press mt-6 inline-flex min-h-11 items-center justify-center rounded-full border px-5 text-sm font-medium transition-colors ${p.popular ? "border-primary bg-primary text-primary-foreground" : "border-border hover:bg-primary hover:text-primary-foreground"}`}>Book a discovery call</a>
         </div>
       ))}
     </div>
@@ -63,15 +63,21 @@ export function PackagesGrid() {
 
 export function FaqList() {
   return (
+    <div className="grid gap-8 lg:grid-cols-[0.8fr_1.4fr]">
+      <div className="lg:sticky lg:top-28 lg:self-start">
+        <p className="text-muted-foreground">Straight answers to what clients ask before we start.</p>
+        <div className="glass mt-6 rounded-2xl p-6"><p className="font-display text-2xl">Need a custom setup?</p><p className="mt-2 text-sm text-muted-foreground">Bring your workflow to a discovery call and we'll scope it together.</p><a href="#contact" className="press mt-5 inline-flex min-h-11 items-center rounded-full bg-primary px-5 text-sm font-medium text-primary-foreground">Book a call →</a></div>
+      </div>
     <div className="glass divide-y divide-border rounded-2xl">
-      {faqs.map((f) => (
+      {faqs.map((f, i) => (
         <details key={f.q} className="group p-6">
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-medium">
-            {f.q}<span className="text-xl text-primary transition-transform duration-200 group-open:rotate-45">+</span>
+            <span className="flex gap-4"><span className="font-mono text-sm tabular-nums text-primary">{String(i + 1).padStart(2, "0")}</span>{f.q}</span><span className="text-xl text-primary transition-transform duration-200 group-open:rotate-45">+</span>
           </summary>
           <p className="mt-3 text-muted-foreground">{f.a}</p>
         </details>
       ))}
+    </div>
     </div>
   );
 }
