@@ -5,6 +5,7 @@ import { useEffect, useState, type CSSProperties, type ReactNode } from "react";
 import { Moon, Sun, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BookingCalendar } from "@/components/booking-calendar";
+import { ResultsGrid, PackagesGrid, FaqList } from "@/components/offer-sections";
 import { ToolsDock } from "@/components/tools-dock";
 import { LivingCard, CursorTrail } from "@/components/living-card";
 import portraitImg from "@/assets/edson-portrait.jpg";
@@ -274,7 +275,11 @@ function Index() {
         <WorkGrid />
       </Section>
 
-      <Section id="certifications" label="04 — Certifications" title="Verified credentials & skills">
+      <Section id="results" label="04 — Real results" title="What these systems deliver">
+        <ResultsGrid />
+      </Section>
+
+      <Section id="certifications" label="05 — Certifications" title="Verified credentials & skills">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {certifications.map((c, i) => (
             <Reveal key={c.url} i={i % 3}>
@@ -292,7 +297,7 @@ function Index() {
         </div>
       </Section>
 
-      <Section id="testimonials" label="05 — Testimonials" title="Kind words">
+      <Section id="testimonials" label="06 — Testimonials" title="Kind words">
         <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <Reveal key={i} i={i}>
@@ -305,7 +310,15 @@ function Index() {
         </div>
       </Section>
 
-      <Section id="contact" label="06 — Contact" title="Book a discovery call">
+      <Section id="packages" label="07 — Packages" title="Pricing & packages">
+        <PackagesGrid />
+      </Section>
+
+      <Section id="faq" label="08 — FAQ" title="Questions & answers">
+        <FaqList />
+      </Section>
+
+      <Section id="contact" label="09 — Contact" title="Book a discovery call">
         <Reveal><p className="max-w-2xl text-lg text-muted-foreground">Choose the system you want built, then pick a time for a free 30-minute call.</p></Reveal>
         <BookingCalendar />
       </Section>
