@@ -187,12 +187,12 @@ function Index() {
               <Reveal><p className="status-pill"><span className="status-dot" aria-hidden />Available for new automation projects · Los Baños, PH</p></Reveal>
               <Reveal i={1}>
                 <h1 className="hero-title mt-5 max-w-4xl font-display">
-                  Replacing hours of <em className="text-primary">manual operations</em> with AI systems that just run.
+                  Cut operational cycle times by <em className="text-primary">up to 80%</em> with audit-ready AI workflows.
                 </h1>
               </Reveal>
               <Reveal i={2}>
                 <p className="hero-description mt-6 max-w-2xl text-base text-muted-foreground lg:text-lg">
-                  I design AI automations that run your follow-ups, reports, inventory and data entry for you — so your team stops copy-pasting and starts growing. Backed by 17+ years running high-volume operations for one of the largest enterprises in the Philippines.
+                  I turn manual handoffs between your CRM, ERP, inbox and spreadsheets into reliable n8n and AI pipelines — built with the zero-error data discipline from 17+ years running high-volume operations at Mercury Drug Corp.
                 </p>
               </Reveal>
               <Reveal i={3}>
@@ -214,7 +214,7 @@ function Index() {
                 </div>
                 <div className="proof-node glass" aria-label="Example automation flow">
                   <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Example flow · live</p>
-                  <p className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs font-medium"><span>Stock mismatch</span><span className="text-primary">→</span><span>AI triage</span><span className="text-primary">→</span><span>Alert sent</span></p>
+                  <p className="mt-1.5 flex flex-wrap items-center gap-1.5 text-xs font-medium"><span>Inbound lead</span><span className="text-primary">→</span><span>Gemini AI triage</span><span className="text-primary">→</span><span>CRM logged &amp; call booked</span></p>
                 </div>
                 <div className="cred-chip glass"><span className="font-display text-lg text-primary">17+</span><span className="text-[11px] leading-tight text-muted-foreground">yrs enterprise ops<br />9 verified certs</span></div>
               </LivingCard>

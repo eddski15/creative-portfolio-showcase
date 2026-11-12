@@ -259,7 +259,13 @@ body { min-width: 320px; }
 .hero-portrait .living-card { position: relative; }
 .proof-node { position: absolute; left: -28px; bottom: 28px; max-width: 220px; padding: 10px 14px; border-radius: 14px; animation: dock-float 6s ease-in-out infinite; }
 .cred-chip { position: absolute; right: -18px; top: 24px; display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 14px; }
-@media (max-width: 599px) { .proof-node, .cred-chip { display: none; } }
+@media (max-width: 599px) {
+  .hero-portrait { width: min(100%, 300px); }
+  .hero-portrait .living-card { display: grid; grid-template-columns: 132px minmax(0,1fr); gap: 10px; align-items: center; }
+  .hero-portrait .living-card > .press { grid-row: span 2; }
+  .proof-node, .cred-chip { position: static; max-width: none; animation: none; min-width: 0; }
+}
+@media (min-width: 600px) and (max-width: 1023px) { .proof-node { left: -12px; max-width: 190px; } .cred-chip { right: -8px; } }
 .pipeline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .pipe-step { position: relative; padding: 5px 12px; border-radius: 9999px; border: 1px solid var(--border); font-size: 12px; background: var(--secondary); }
 .pipe-step + .pipe-step::before { content: "→"; margin-right: 8px; margin-left: -2px; color: var(--primary); }
