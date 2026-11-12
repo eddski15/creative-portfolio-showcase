@@ -192,19 +192,29 @@ function Index() {
               </Reveal>
               <Reveal i={2}>
                 <p className="hero-description mt-6 max-w-2xl text-base text-muted-foreground lg:text-lg">
-                  I turn manual handoffs between your CRM, ERP, inbox and spreadsheets into reliable n8n and AI pipelines — built with the zero-error data discipline from 17+ years running high-volume operations at Mercury Drug Corp.
+                  I turn manual handoffs between your CRM, ERP, inbox and spreadsheets into reliable n8n and AI pipelines — built with the zero-error data discipline from 17+ years running high-volume operations for one of the largest enterprises in the Philippines.
                 </p>
               </Reveal>
               <Reveal i={3}>
                 <ul className="mt-6 grid gap-2 text-sm sm:grid-cols-2">
-                  {["Fewer errors in your data and stock", "Reports that build and send themselves", "Customer replies handled by AI, 24/7", "All your tools connected in one flow"].map((b) => (
-                    <li key={b} className="flex gap-2"><span className="text-primary">✓</span>{b}</li>
+                  {[
+                    ["Audit-ready data & stock", "Zero-error reconciliation across high-volume operations."],
+                    ["Reports that send themselves", "Sales, KPI and branch summaries compiled in seconds."],
+                    ["24/7 AI customer triage", "Leads sorted, answered and booked with clear guardrails."],
+                    ["One connected tool stack", "CRM, ERP, chat and sheets synced, with instant error alerts."],
+                  ].map(([t, d]) => (
+                    <li key={t} className="flex gap-2"><span className="text-primary">✓</span><span><span className="font-medium text-foreground">{t}</span><span className="block text-xs text-muted-foreground">{d}</span></span></li>
                   ))}
                 </ul>
               </Reveal>
+              <Reveal i={3}>
+                <p className="mt-5 max-w-2xl border-l-2 border-primary/60 pl-3 text-sm text-muted-foreground">
+                  <span className="font-medium text-foreground">Built for</span> multi-branch retail, pharmacy, distribution and B2B teams scaling capacity without adding headcount.
+                </p>
+              </Reveal>
               <Reveal i={4} className="hero-actions mt-8 flex flex-wrap gap-3">
                 <Button asChild className="btn-lux hero-primary h-12 rounded-full px-7 font-medium"><a href="#contact">Book a workflow audit →</a></Button>
-                <Button asChild variant="outline" className="btn-lux h-12 rounded-full bg-transparent px-7 font-medium"><a href="#works">Explore my workflows</a></Button>
+                <Button asChild variant="outline" className="btn-lux h-12 rounded-full bg-transparent px-7 font-medium"><a href="#works">See a 2-min case study</a></Button>
               </Reveal>
             </div>
             <Reveal i={5} className="hero-portrait justify-self-center">
@@ -221,7 +231,7 @@ function Index() {
             </Reveal>
           </div>
           <div className="hero-stats grid grid-cols-3 gap-4 border-t border-border/50 pt-6">
-            {[["17+", "Years in operations"], ["100%", "Stock precision"], ["9", "Certifications"]].map(([n, l], i) => (
+            {[["17+", "Yrs enterprise operations"], ["100%", "Data integrity record"], ["9", "Verified certifications"]].map(([n, l], i) => (
               <Reveal key={l} i={i + 6}>
                 <p className="font-display text-3xl text-primary sm:text-4xl">{n}</p>
                 <p className="mt-1 text-xs text-muted-foreground sm:text-sm">{l}</p>
@@ -324,6 +334,24 @@ function Index() {
           ))}
         </div>
       </Section>
+
+      <section aria-label="How I protect your data" className="mx-auto max-w-6xl px-6 pb-8">
+        <Reveal>
+          <div className="glass rounded-2xl p-6 sm:p-8">
+            <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">For IT &amp; operations leaders</p>
+            <h3 className="mt-2 font-display text-2xl sm:text-3xl">How I protect your data</h3>
+            <ul className="mt-5 grid gap-4 text-sm sm:grid-cols-3">
+              {[
+                ["Least-access credentials", "Scoped accounts and secure key storage — no shared passwords."],
+                ["Error alerts & recovery", "Every workflow logs runs, retries failures and alerts your team."],
+                ["You own everything", "Full workflow export, documentation and handover from day one."],
+              ].map(([t, d]) => (
+                <li key={t}><p className="font-medium"><span className="text-primary">✓ </span>{t}</p><p className="mt-1 text-muted-foreground">{d}</p></li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+      </section>
 
       <Section id="packages" label="07 — Packages" title="Pricing & packages">
         <PackagesGrid />
