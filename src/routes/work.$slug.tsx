@@ -39,7 +39,7 @@ function CaseStudy() {
         <h1 className="mt-4 font-display text-4xl sm:text-5xl lg:text-6xl">{w.t}</h1>
         <p className="mt-4 text-muted-foreground">Role: <span className="text-foreground">{w.role}</span>{w.ongoing && " · In progress"}</p>
         <figure className="glass mt-10 overflow-hidden rounded-3xl p-2">
-          <img src={w.img} alt={`${w.t} screenshot`} className="w-full rounded-2xl" />
+          <img src={w.img} alt={`${w.t} screenshot`} decoding="async" width={1600} height={900} className="w-full rounded-2xl" />
         </figure>
         <div className="mt-14 grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <section><p className="font-mono text-xs uppercase tracking-widest text-primary">01 — Problem</p><p className="mt-3 text-lg">{w.problem}</p></section>

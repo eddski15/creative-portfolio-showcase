@@ -48,6 +48,15 @@ export function BookingCalendar() {
   const [service, setService] = useState<string | null>(null);
   const [theme, setTheme] = useState<"light" | "dark">("light");
   const holder = useRef<HTMLDivElement>(null);
+  const [near, setNear] = useState(false);
+
+  useEffect(() => {
+    const host = holder.current;
+    if (!host || near) return;
+    const io = new IntersectionObserver((e) => { if (e.some((x) => x.isIntersecting)) { setNear(true); io.disconnect(); } }, { rootMargin: "600px 0px" });
+    io.observe(host);
+    return () => io.disconnect();
+  }, [near]);
 
   useEffect(() => {
     const read = () => setTheme(document.documentElement.classList.contains("dark") ? "dark" : "light");
@@ -59,7 +68,7 @@ export function BookingCalendar() {
 
   useEffect(() => {
     const host = holder.current;
-    if (!host) return;
+    if (!host || !near) return;
     const el = document.createElement("div");
     el.className = "w-full";
     host.replaceChildren(el);
@@ -75,7 +84,7 @@ export function BookingCalendar() {
     });
     api("ui", { theme, cssVarsPerTheme: BRAND, hideEventTypeDetails: false, layout: "month_view" });
     return () => el.remove();
-  }, [service, theme]);
+  }, [service, theme, near]);
 
   return (
     <div className="mt-10 space-y-6">

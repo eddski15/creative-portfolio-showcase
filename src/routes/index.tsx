@@ -110,7 +110,7 @@ function WorkGrid() {
         {list.map((w) => (
           <Link key={w.slug} to="/work/$slug" params={{ slug: w.slug }} className="work-card group glass block overflow-hidden rounded-2xl">
             <div className="relative aspect-[4/3] overflow-hidden bg-muted">
-              <img src={w.img} alt={`${w.t} preview`} loading="lazy" className="zoom h-full w-full object-cover object-left-top" />
+              <img src={w.img} alt={`${w.t} preview`} loading="lazy" decoding="async" width={1600} height={900} className="zoom h-full w-full object-cover object-left-top" />
               <div className="work-overlay absolute inset-0 flex flex-col justify-end p-6">
                 <p className="font-mono text-[11px] uppercase tracking-widest text-primary">{w.role}</p>
                 <h3 className="mt-2 font-display text-2xl text-card-foreground">{w.t}</h3>
@@ -220,7 +220,7 @@ function Index() {
             <Reveal i={5} className="hero-portrait justify-self-center">
               <LivingCard max={10} className="rounded-3xl">
                 <div className="press glass relative w-full overflow-hidden rounded-3xl p-2">
-                  <img src={portraitImg} alt="Edson Halili" className="aspect-[4/5] w-full rounded-2xl object-cover" />
+                  <img src={portraitImg} alt="Edson Halili" width={800} height={1000} fetchPriority="high" decoding="async" className="aspect-[4/5] w-full rounded-2xl object-cover" />
                 </div>
                 <div className="proof-node glass" aria-label="Example automation flow">
                   <p className="font-mono text-[10px] uppercase tracking-widest text-muted-foreground">Example flow · live</p>
